@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  next-client:
+    container_name: next-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:13.2
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./server/pg_data:/var/lib/postgresql/data/pgdata
+    restart: always
+    env_file:
+    - ./server/docker.env
+
+  nest-server:
+    container_name: nest-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    env_file:
+    - ./server/docker.env
