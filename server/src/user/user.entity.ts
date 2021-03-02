@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class Admin {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,9 +10,6 @@ export class Admin {
 
   @Column({ nullable: false })
   passwordHash?: string;
-
-  @Column({ nullable: false })
-  nickName: string;
 
   @CreateDateColumn()
   createdAt: Date;
