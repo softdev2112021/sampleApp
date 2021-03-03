@@ -22,7 +22,11 @@ export class AuthController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
+    // const user = await this.userRepository.findOne(req.user.id);
+    // const { citiesId } = user;
+
+
     return req.user;
   }
 
