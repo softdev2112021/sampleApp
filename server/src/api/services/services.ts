@@ -1,4 +1,6 @@
-const getResources = async (url) => {
+import fetch from 'node-fetch';
+
+const getResources = async (url: string): Promise<any> => {
   let res = await fetch(url);
 
   if (!res.ok) {
@@ -8,7 +10,7 @@ const getResources = async (url) => {
   return await res.json();
 };
 
-const postData = async (url, data) => {
+const postData = async (url: string, data: any): Promise<any> => {
   let res = await fetch(url, {
     method: 'POST',
     headers: {
