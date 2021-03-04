@@ -23,6 +23,7 @@ export class CreateUsers1614628544483 implements MigrationInterface {
         return userRepository.create({
           login: user.login,
           passwordHash: await bcrypt.hash(user.password, 10),
+          locations: [],
         });
       }),
     );
