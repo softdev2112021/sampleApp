@@ -13,9 +13,9 @@ export class CreateUsers1614628544483 implements MigrationInterface {
       password: string;
     }
     const usersData: userData[] = [
-      { login: 'user1', password: 'pass1' },
-      { login: 'user2', password: 'pass2' },
-      { login: 'user3', password: 'pass3' },
+      { login: 'user1@gmail.com', password: 'pass1' },
+      { login: 'user2@gmail.com', password: 'pass2' },
+      { login: 'user3@gmail.com', password: 'pass3' },
     ];
 
     const users: User[] = await Promise.all(
