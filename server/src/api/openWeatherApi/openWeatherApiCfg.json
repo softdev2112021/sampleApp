@@ -8,7 +8,11 @@
     },
     "byCityId": "id",
     "byCityName": "q",
-    "exclude": "minutely,hourly,alerts"
+    "exclude": [
+      "minutely",
+      "hourly",
+      "alerts"
+    ]
   },
   "units": "metric",
   "forecastDays": 4
