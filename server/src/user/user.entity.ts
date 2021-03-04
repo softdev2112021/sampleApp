@@ -12,5 +12,5 @@ export class User {
   passwordHash?: string;
 
   @Column('simple-json')
-  locations: [{ name: string; coords: [number, number] }];
+  locations?: [{ name: string; coords: [number, number] }];
 }
