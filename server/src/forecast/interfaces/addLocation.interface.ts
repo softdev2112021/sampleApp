@@ -1,4 +1,4 @@
-export interface Forecast {
+export interface AddLocation {
   name: string;
   coords: [number, number];
 }

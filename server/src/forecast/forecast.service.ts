@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import getWeatherForecast from 'src/api/weatherApi';
 import { Connection, Repository } from 'typeorm';
 import { User } from '../user/user.entity';
-import { Forecast } from './interfaces/forecast.interface';
+import { AddLocation } from './interfaces/addLocation.interface';
+import { DeleteLocation } from './interfaces/deleteLocation.interface';
 
 @Injectable()
 export class ForecastService {
@@ -26,17 +27,17 @@ export class ForecastService {
     return Promise.all(forecast);
   }
 
-  async addLocation(id: number, forecast: Forecast): Promise<void> {
+  async addLocation(id: number, addLocation: AddLocation): Promise<void> {
     const user = await this.userRepository.findOne(id);
-    user.locations.push(forecast);
+    user.locations.push(addLocation);
     await this.userRepository.manager.save(user);
   }
 
-  async deleteLocation(id: number, name: string): Promise<void> {
+  async deleteLocation(id: number, deleteLocation: DeleteLocation): Promise<void> {
     const user = await this.userRepository.findOne(id);
     const { locations } = user;
     locations.splice(
-      locations.findIndex((location) => location.name === name),
+      locations.findIndex((location) => location.name === deleteLocation.name),
       1,
     );
     await this.userRepository.manager.save(user);
