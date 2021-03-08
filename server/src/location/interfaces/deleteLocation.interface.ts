@@ -1,3 +1,3 @@
 export interface DeleteLocation {
-  name: string;
+  id: number;
 }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ForecastController } from './forecast.controller';
-import { ForecastService } from './forecast.service';
+import { ForecastController } from './location.controller';
+import { ForecastService } from './location.service';
 
 describe('ForecastController', () => {
   let controller: ForecastController;

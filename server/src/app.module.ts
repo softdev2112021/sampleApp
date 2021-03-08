@@ -3,7 +3,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DbModule } from './db/db.module';
-import { ForecastModule } from './forecast/forecast.module';
+import { LocationModule } from './location/location.module';
+import { WeatherModule } from './weather/weather.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { ForecastModule } from './forecast/forecast.module';
     }),
     DbModule,
     AuthModule,
-    ForecastModule,
+    LocationModule,
+    WeatherModule,
   ],
 })
 export class AppModule {}
