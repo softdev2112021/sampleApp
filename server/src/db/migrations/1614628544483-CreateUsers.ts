@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
-import { User } from '../../user.entity';
+import { User } from '../../user/user.entity';
 import * as bcrypt from 'bcrypt';
 
 export class CreateUsers1614628544483 implements MigrationInterface {
@@ -23,7 +23,6 @@ export class CreateUsers1614628544483 implements MigrationInterface {
         return userRepository.create({
           login: user.login,
           passwordHash: await bcrypt.hash(user.password, 10),
-          locations: [],
         });
       }),
     );
