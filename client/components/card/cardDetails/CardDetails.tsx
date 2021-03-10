@@ -1,16 +1,29 @@
 import React from "react";
 
-const CardDetails = ({ date, content: { data, descr, icon } }) => {
+const CardDetails = ({
+  date: { weekDay, date },
+  content: {
+    data: { min, max, pop },
+    descr,
+    icon,
+  },
+}) => {
   return (
-    <div className="d-flex mb-2">
+    <div className="bg-grey d-flex mb-2">
       {date}
-      {data}
+      {weekDay}
+      {min}
+      {max}
+      
       {descr}
-      {icon}
-      <div className="d-flex align-items-center">Nextday forecast</div>
+      <i className="fa fa-umbrella">{pop}</i>
+      <div>
+        <img src={icon} alt="image" width="64" />
+      </div>
+      <div className="d-flex align-items-center"></div>
       <div className="d-flex align-items-center ml-auto">
         <div className="text-grey f-s-11"></div>
-        <div className="width-50 text-right pl-2 f-w-600">3.79%</div>
+        <div className="width-50 text-right pl-2 f-w-600"></div>
       </div>
     </div>
   );

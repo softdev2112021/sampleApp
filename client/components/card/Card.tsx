@@ -1,10 +1,10 @@
 import React from "react";
 import CardDetails from './cardDetails/CardDetails';
 
-const Card = ({ id, title, date, content: { data, descr, icon }, contentDetails, onDelete, }) => {
+const Card = ({ id, title, date: {weekDay, date}, content: { data, descr, icon }, contentDetails, onDelete, }) => {
   
   const cardDetails = contentDetails.map((content) => {
-    return <CardDetails key={content.date} {...content}/>
+    return <CardDetails key={content.date.weekDay} {...content}/>
   });
 
   return (
@@ -16,15 +16,15 @@ const Card = ({ id, title, date, content: { data, descr, icon }, contentDetails,
         >
           <i className="fa fa-times"></i>
         </button>
-        <div className="d-flex justify-content-between text-grey">
+        <h3 className="d-flex justify-content-between text-grey">
           <b>{title}</b>
           <b>{date}</b>
-        </div>
+        </h3>
         <div className="d-flex align-items-center">
           <h2 className="text-white mb-0">
             {data}<sup>o</sup>C
           </h2>
-          <div className="forecast-icon">
+          <div>
             <img
               src={icon}
               alt="image"

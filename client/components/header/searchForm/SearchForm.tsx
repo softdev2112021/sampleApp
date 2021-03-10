@@ -7,7 +7,10 @@ const SearchForm = ({ onSubmit }) => {
         action=""
         method="POST"
         name="search_form"
-        onSubmit={() => onSubmit()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
       >
         <div className="form-group">
           <input

@@ -1,23 +1,48 @@
-const getResources = async (url) => {
-  let res = await fetch(url);
-
-  if (!res.ok) {
-    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-  }
-
-  return await res.json();
-}
-
 const postData = async (url, data) => {
   let res = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: data,
   });
 
   return res;
-}
+};
 
-export { getResources, postData };
+const changeResources = async ({ method, url, accessToken, data = null }) => {
+  const options = {
+    method,
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  }
+
+  if (data) {
+    options.body = JSON.stringify(data);
+  }
+
+  let res = await fetch(url, options);
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+  }
+
+  return res;
+};
+
+const addResource = async (params) => {
+  return changeResources({ method: 'POST', ...params });
+};
+
+const deleteResource = async (params) => {
+  return changeResources({ method: 'DELETE', ...params });
+};
+
+const getResources = async (params) => {
+  return (await changeResources({ method: 'GET', ...params })).json();
+};
+
+export { getResources, addResource, deleteResource, postData };
