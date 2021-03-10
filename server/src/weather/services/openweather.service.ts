@@ -10,11 +10,8 @@ const {
     exclude,
   },
   units,
+  forecastDays,
 } = config;
-
-// pics url
-// http://openweathermap.org/img/wn/10d@2x.png
-// http://openweathermap.org/img/wn/{iconID}@{size}.png
 
 @Injectable()
 export class OpenWeatherService {
@@ -67,7 +64,7 @@ export class OpenWeatherService {
               description,
               icon,
             },
-            daily: dailyWeather,
+            daily: dailyWeather.splice(1, forecastDays),
           };
         },
       );
