@@ -15,5 +15,5 @@
     ]
   },
   "units": "metric",
-  "forecastDays": 4
+  "forecastDays": 3
 }
