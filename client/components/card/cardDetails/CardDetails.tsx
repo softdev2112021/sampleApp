@@ -16,7 +16,7 @@ const CardDetails = ({
       </div>
       <div className="f-s-18 f-w-800 height-20">{max}<sup>o</sup>C</div>
       <div className="f-s-14 f-w-800 mb-2">{min}</div>
-      <i className="fa fa-umbrella">{pop}</i>
+      <i className="fa fa-umbrella">{` ${pop}`}</i>
     </div>
   );
 };
