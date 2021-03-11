@@ -105,7 +105,7 @@ const Locations = () => {
   const headerProps = {
     brandName: 'Forecastic',
     userName: 'user',
-    avatar: 'assets/img/user/user-13.jpg',
+    avatar: '/user-13.jpg',
     onSearchSubmit: onLocationAdd
   }
 

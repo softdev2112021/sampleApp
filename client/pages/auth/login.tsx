@@ -35,7 +35,7 @@ const Login = () => {
       <div className="login-cover">
         <div
           className="login-cover-image"
-          style={{ backgroundImage: "url(/assets/img/login-bg/login-bg-17.jpg)" }}
+          style={{ backgroundImage: "url(/login-bg-17.jpg)" }}
         ></div>
         <div className="login-cover-bg"></div>
       </div>
