@@ -2,7 +2,7 @@ import { getResources, addResource, deleteResource } from '../../services/servic
 import convertTime from '../../utils/convertTime/convertTime';
 import config from './weatherApiCfg';
 
-const { entrypoints: { locations } } = config;
+const { entrypoints: { locations }, iconsURL } = config;
 
 const getLocations = async (params) => {
   return getResources({ url: locations, ...params }).then((data) => {
@@ -14,7 +14,7 @@ const getLocations = async (params) => {
             content: { 
               data: { min: Math.floor(min), max: Math.floor(max), pop: `${pop*100}%` },
               descr: description,
-              icon: `http://openweathermap.org/img/wn/${icon}@2x.png`
+              icon: `${iconsURL}/${icon}@2x.png`
             }
           }
         });
@@ -22,7 +22,7 @@ const getLocations = async (params) => {
           id,
           title: name,
           date: convertTime(dt),
-          content: { data: Math.floor(temp), descr: description, icon: `http://openweathermap.org/img/wn/${icon}@4x.png` },
+          content: { data: Math.floor(temp), descr: description, icon: `${iconsURL}/${icon}@4x.png` },
           contentDetails,
         }
       });

@@ -4,6 +4,7 @@ const config = {
   entrypoints: {
     locations: `${baseURL}/locations`,
   },
+  iconsURL: 'http://openweathermap.org/img/wn',
 }
 
 export default config;
