@@ -18,6 +18,7 @@ const changeResources = async ({ method, url, accessToken, data = null }) => {
       'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
+    body: null,
   }
 
   if (data) {
