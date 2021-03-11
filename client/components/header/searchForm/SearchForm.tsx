@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
+//TODO Make loading cityList from DB as it is too heavy to start on client
+import cities from '../../../lib/api/weatherApi/cityList.json';
 
 const SearchForm = ({ onSubmit }) => {
   const [singleSelections, setSingleSelections] = useState([]);
-
-  //TODO Add loading from file
-  const options = [
-    { name: "Dnipro", coord: { lat: 48.450001, lon: 34.98333 } },
-    { name: "Kyiv", coord: { lat: 50.433334, lon: 30.516666 } },
-    { name: "Lviv", coord: { lat: 49.838261, lon: 24.023239 } },
-  ];
 
   return (
     <div className="navbar-form">
@@ -26,9 +21,9 @@ const SearchForm = ({ onSubmit }) => {
           <Typeahead
             id="city"
             labelKey="name"
-            minLength={1}
+            minLength={3}
             onChange={setSingleSelections}
-            options={options}
+            options={cities}
             placeholder="Enter city name"
             selected={singleSelections}
           />
