@@ -12,7 +12,7 @@ const getLocations = async (params) => {
           return {
             date: convertTime(dt), 
             content: { 
-              data: { min: Math.floor(min), max: Math.floor(max), pop: `${pop*100}%` },
+              data: { min: Math.floor(min), max: Math.floor(max), pop: `${Math.floor(pop*100)}%` },
               descr: description,
               icon: `${iconsURL}/${icon}@2x.png`
             }
