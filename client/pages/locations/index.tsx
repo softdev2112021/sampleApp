@@ -3,6 +3,7 @@ import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import Cache from '../../lib/cache/Cache';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
+import Layout from '../../components/layout/Layout';
 
 const cache = new Cache();
 
@@ -26,16 +27,23 @@ const Locations = () => {
     //   });
   };
 
-  const onLocationAdd = () => {
-    const location = { name: 'Dnipro', coords: [50.35, 30.25] };
+  const onLocationAdd = ([{ name, coord: { lat, lon } }]) => {
+    const data = {
+      name,
+      coords: [lat, lon],
+    }
+      // const [{ coord: { lat, lon } }] = singleSelections;
+  // const location = { name: 'Dnipro', coords: [50.35, 30.25] };
 
-    addLocation({ accessToken: cache.read('token').accessToken, data: location })
+    if (locations.length >= 10) return;
+    
+    addLocation({ accessToken: cache.read('token').accessToken, data })
       .then((data) => {
       //   logger.warn(`Server: ${data}`);
       // } else {
       //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
       // }
-    });
+    }).then()
     //   .catch((e) => {
     //     setLocationsLoading(false);
     //     // setOutput(error.network);
@@ -85,32 +93,29 @@ const Locations = () => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
   });
 
+  //TODO create new request to load User data from server
   const headerProps = {
     brandName: 'Forecastic',
-    userName: 'user1',
-    avatar: 1,
+    userName: 'user',
+    avatar: 'assets/img/user/user-13.jpg',
     onSearchSubmit: onLocationAdd
   }
 
   return (
-    <div>
-      <div>
-        <Header {...headerProps} />
-      </div>
+    <Layout>
+      <Header {...headerProps} />
       <div className="content">
-        <div>
-          <div className="row">
-            <div className="col-xl-6">
-              <div className="row">
-                <div className="col-sm-6">
-                  {!locationsLoading && locationElements}
-                </div>
+        <div className="row">
+          <div className="col-xl-6">
+            <div className="row">
+              <div className="col-sm-6">
+                {!locationsLoading && locationElements}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
