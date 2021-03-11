@@ -4,6 +4,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 const SearchForm = ({ onSubmit }) => {
   const [singleSelections, setSingleSelections] = useState([]);
 
+  //TODO Add loading from file
   const options = [
     { name: "Dnipro", coord: { lat: 48.450001, lon: 34.98333 } },
     { name: "Kyiv", coord: { lat: 50.433334, lon: 30.516666 } },

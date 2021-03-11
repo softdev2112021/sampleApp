@@ -17,6 +17,7 @@ const Locations = () => {
     setLocations((location) => location.filter((item) => item.id !== id));
     deleteLocation({ ...token, data: { id } })
       .then((data) => {
+        //TODO Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -25,6 +26,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
+        //TODO Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -42,6 +44,7 @@ const Locations = () => {
 
     addLocation({ ...token, data })
       .then((data) => {
+        //TODO Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -49,9 +52,9 @@ const Locations = () => {
         // }
         getLocations(token)
           .then((data) => {
-            console.log(data);
             setLocationsLoading(false);
             setLocations(data);
+            //TODO Add logger
             // if (typeof(data) !== 'object') {
             //   logger.warn(`Server: ${data}`);
             // } else {
@@ -60,6 +63,7 @@ const Locations = () => {
           })
           .catch((e) => {
             setLocationsLoading(false);
+            //TODO Add logger
             // setOutput(error.network);
             // logger.error(`getOperators: ${e.message}`);
           });
@@ -67,6 +71,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
+        //TODO Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -75,9 +80,9 @@ const Locations = () => {
   useEffect(() => {
     getLocations(cache.read("token"))
       .then((data) => {
-        console.log(data);
         setLocationsLoading(false);
         setLocations(data);
+        //TODO Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -86,12 +91,11 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
+        //TODO Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
   }, []);
-
-  console.log(locations);
 
   const locationElements = locations.map((locationProps) => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
@@ -108,17 +112,12 @@ const Locations = () => {
   return (
     <Layout>
       <Header {...headerProps} />
-      <div className="content">
-        <div className="row">
-          <div className="col-xl-6">
+      <div className="content-full-width p-20">
             <div className="row">
-              <div className="col-sm-6">
+
                 {!locationsLoading && locationElements}
-              </div>
             </div>
           </div>
-        </div>
-      </div>
     </Layout>
   );
 };
