@@ -9,22 +9,14 @@ const CardDetails = ({
   },
 }) => {
   return (
-    <div className="bg-grey d-flex mb-2">
-      {date}
-      {weekDay}
-      {min}
-      {max}
-      
-      {descr}
-      <i className="fa fa-umbrella">{pop}</i>
-      <div>
+    <div className="col-4 mb-2 d-flex flex-column align-items-center">
+      <div className="f-s-12 f-w-800 height-10">{weekDay}/{date}</div>
+      <div className="height-50">
         <img src={icon} alt="image" width="64" />
       </div>
-      <div className="d-flex align-items-center"></div>
-      <div className="d-flex align-items-center ml-auto">
-        <div className="text-grey f-s-11"></div>
-        <div className="width-50 text-right pl-2 f-w-600"></div>
-      </div>
+      <div className="f-s-18 f-w-800 height-20">{max}<sup>o</sup>C</div>
+      <div className="f-s-14 f-w-800 mb-2">{min}</div>
+      <i className="fa fa-umbrella">{pop}</i>
     </div>
   );
 };
