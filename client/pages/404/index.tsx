@@ -12,7 +12,7 @@ const NotFound = () => {
           Perhaps, there pages will help find what you're looking for.
         </div>
         <div>
-          <Link href="/login" >
+          <Link href="/auth/login" >
             <a className="btn btn-success p-l-20 p-r-20">Go Home</a>
           </Link>
         </div>
