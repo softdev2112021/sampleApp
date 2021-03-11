@@ -15,18 +15,18 @@ const convertTime = (timestamp) => {
     "Dec",
   ];
   const weekDays = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
   ];
   const month = months[time.getMonth()];
-  const weekDay = weekDays[time.getDay() - 1];
-  const date = `${time.getDate()}/${month}`;
-  return { weekDay, date };
+  const weekDay = weekDays[time.getDay()];
+  const date = `${month}/${time.getDate()}`;
+  return { date, weekDay };
 };
 
 export default convertTime;
