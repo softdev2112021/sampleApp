@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:4000';
+const baseURL = `${process.env.appHost}:${process.env.appPort}`;
 const config = {
   apiKey: '',
   entrypoints: {
