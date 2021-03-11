@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import Cache from '../../lib/cache/Cache';
+import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import Layout from '../../components/layout/Layout';
 
-const cache = new Cache();
+const storage = new LocalStorage();
+const cache = new Cache(storage);
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
@@ -101,11 +103,11 @@ const Locations = () => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
   });
 
-  //TODO create new request to load User data from server
+  //TODO create new request to load User data from DB
   const headerProps = {
     brandName: 'Forecastic',
     userName: 'user',
-    avatar: '/user-13.jpg',
+    avatar: '/img/user/profile.jpg',
     onSearchSubmit: onLocationAdd
   }
 
@@ -113,11 +115,10 @@ const Locations = () => {
     <Layout>
       <Header {...headerProps} />
       <div className="content-full-width p-20">
-            <div className="row">
-
-                {!locationsLoading && locationElements}
-            </div>
-          </div>
+        <div className="row">
+          {!locationsLoading && locationElements}
+        </div>
+      </div>
     </Layout>
   );
 };
