@@ -12,64 +12,68 @@ const Locations = () => {
   const [locationsLoading, setLocationsLoading] = useState(true);
   
   const onLocationDelete = (id) => {
+    const token = cache.read("token");
+
     setLocations((location) => location.filter((item) => item.id !== id));
-    deleteLocation({ accessToken: cache.read('token').accessToken, data: { id } })
+    deleteLocation({ ...token, data: { id } })
       .then((data) => {
-      //   logger.warn(`Server: ${data}`);
-      // } else {
-      //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-      // }
-    });
-    //   .catch((e) => {
-    //     setLocationsLoading(false);
-    //     // setOutput(error.network);
-    //     // logger.error(`getOperators: ${e.message}`);
-    //   });
+        // if (typeof(data) !== 'object') {
+        //   logger.warn(`Server: ${data}`);
+        // } else {
+        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
+        // }
+      })
+      .catch((e) => {
+        setLocationsLoading(false);
+        // setOutput(error.network);
+        // logger.error(`getOperators: ${e.message}`);
+      });
   };
 
   const onLocationAdd = ([{ name, coord: { lat, lon } }]) => {
+    if (locations.length >= 10) return;
+
     const data = {
       name,
       coords: [lat, lon],
-    }
-      // const [{ coord: { lat, lon } }] = singleSelections;
-  // const location = { name: 'Dnipro', coords: [50.35, 30.25] };
+    };
 
-    if (locations.length >= 10) return;
-    
-    addLocation({ accessToken: cache.read('token').accessToken, data })
-      .then((data) => {
-      //   logger.warn(`Server: ${data}`);
-      // } else {
-      //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-      // }
-    }).then()
-    //   .catch((e) => {
-    //     setLocationsLoading(false);
-    //     // setOutput(error.network);
-    //     // logger.error(`getOperators: ${e.message}`);
-    //   });
+    const token = cache.read("token");
 
-    getLocations({ accessToken: cache.read('token').accessToken })
+    addLocation({ ...token, data })
       .then((data) => {
-        console.log(data);
-        setLocationsLoading(false);
-        setLocations(data);
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
         //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
         // }
-    })
-  //   .catch((e) => {
-  //     setLocationsLoading(false);
-  //     // setOutput(error.network); 
-  //     // logger.error(`getOperators: ${e.message}`);
-  //   });
+        getLocations(token)
+          .then((data) => {
+            console.log(data);
+            setLocationsLoading(false);
+            setLocations(data);
+            // if (typeof(data) !== 'object') {
+            //   logger.warn(`Server: ${data}`);
+            // } else {
+            //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
+            // }
+          })
+          .catch((e) => {
+            setLocationsLoading(false);
+            // setOutput(error.network);
+            // logger.error(`getOperators: ${e.message}`);
+          });
+
+      })
+      .catch((e) => {
+        setLocationsLoading(false);
+        // setOutput(error.network);
+        // logger.error(`getOperators: ${e.message}`);
+      });
   };
 
   useEffect(() => {
-    getLocations({ accessToken: cache.read('token').accessToken })
+    getLocations(cache.read("token"))
       .then((data) => {
         console.log(data);
         setLocationsLoading(false);
@@ -79,12 +83,12 @@ const Locations = () => {
         // } else {
         //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
         // }
-    })
-  //   .catch((e) => {
-  //     setLocationsLoading(false);
-  //     // setOutput(error.network); 
-  //     // logger.error(`getOperators: ${e.message}`);
-  //   });
+      })
+      .catch((e) => {
+        setLocationsLoading(false);
+        // setOutput(error.network);
+        // logger.error(`getOperators: ${e.message}`);
+      });
   }, []);
 
   console.log(locations);
