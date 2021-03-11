@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { postData } from '../../lib/services/services';
+import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import Cache from '../../lib/cache/Cache';
+import swal from 'sweetalert';
 
-const cache = new Cache();
+const storage = new LocalStorage();
+const cache = new Cache(storage);
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,14 +22,19 @@ const Login = () => {
       password: e.currentTarget.password.value,
     }
 
-    const res = await postData('http://localhost:4000/auth/login', JSON.stringify(data));
+    const res = await postData(`${process.env.appHost}:${process.env.appPort}/auth/login`, JSON.stringify(data));
 
     cache.write('token', await res.json());
 
     if (res.ok) {
       location.href = '/locations';
     } else {
-      alert('Failed to login!');
+      swal({
+        title: "Access denied",
+        text: "Wrong auth data",
+        icon: "error",
+        dangerMode: true,
+      });
     }
   }
   
@@ -35,7 +43,7 @@ const Login = () => {
       <div className="login-cover">
         <div
           className="login-cover-image"
-          style={{ backgroundImage: "url(/login-bg-17.jpg)" }}
+          style={{ backgroundImage: "url(/img/background/login-bg.jpg)" }}
         ></div>
         <div className="login-cover-bg"></div>
       </div>
