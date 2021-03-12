@@ -5,7 +5,7 @@ import Cache from '../../lib/cache/Cache';
 import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import Layout from '../../components/layout/Layout';
-import { Location } from './interfaces/Location';
+import Location from '../../lib/api/weatherApi/interfaces/Location';
 
 const storage = new LocalStorage();
 const cache = new Cache(storage);

@@ -1,4 +1,4 @@
-export interface Location {
+export default interface Location {
   name: string;
   coord: {
     lat: number;
