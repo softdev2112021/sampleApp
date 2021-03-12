@@ -5,6 +5,7 @@ import Cache from '../../lib/cache/Cache';
 import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import Layout from '../../components/layout/Layout';
+import { Location } from './interfaces/Location';
 
 const storage = new LocalStorage();
 const cache = new Cache(storage);
@@ -13,7 +14,7 @@ const Locations = () => {
   const [locations, setLocations] = useState([]);
   const [locationsLoading, setLocationsLoading] = useState(true);
   
-  const onLocationDelete = (id) => {
+  const onLocationDelete = (id: number): void => {
     const token = cache.read("token");
 
     setLocations((location) => location.filter((item) => item.id !== id));
@@ -34,7 +35,7 @@ const Locations = () => {
       });
   };
 
-  const onLocationAdd = ([{ name, coord: { lat, lon } }]) => {
+  const onLocationAdd = ([{ name, coord: { lat, lon } }]: Location[]): void => {
     if (locations.length >= 10) return;
 
     const data = {

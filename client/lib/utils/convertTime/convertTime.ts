@@ -1,4 +1,9 @@
-const convertTime = (timestamp) => {
+interface ConvertedTime {
+  date: string;
+  weekDay: string;
+}
+
+const convertTime = (timestamp: number): ConvertedTime => {
   const time = new Date(timestamp * 1000);
   const months = [
     "Jan",
@@ -26,6 +31,7 @@ const convertTime = (timestamp) => {
   const month = months[time.getMonth()];
   const weekDay = weekDays[time.getDay()];
   const date = `${month}/${time.getDate()}`;
+
   return { date, weekDay };
 };
 

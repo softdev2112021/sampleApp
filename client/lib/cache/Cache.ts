@@ -1,10 +1,12 @@
+import LocalStorage from "./storages/LocalStorage";
+
 class Cache {
-  storage: any;
-  constructor(storage) {
+  storage: LocalStorage;
+  constructor(storage: LocalStorage) {
     this.storage = storage;
   }
 
-  write(key: string, data: any) {
+  write(key: string, data: any): void {
     this.storage.write(key, data);
   }
 

@@ -1,4 +1,14 @@
-const postData = async (url, data) => {
+interface Params {
+  url: string;
+  accessToken: string;
+  data?: any;
+}
+
+interface Options extends Params {
+  method: string;
+}
+
+const postData = async (url: string, data: any): Promise<any>  => {
   let res = await fetch(url, {
     method: "POST",
     headers: {
@@ -10,7 +20,7 @@ const postData = async (url, data) => {
   return res;
 };
 
-const changeResources = async ({ method, url, accessToken, data = null }) => {
+const changeResources = async ({ method, url, accessToken, data = null }: Options): Promise<any> => {
   const options = {
     method,
     headers: {
@@ -34,15 +44,15 @@ const changeResources = async ({ method, url, accessToken, data = null }) => {
   return res;
 };
 
-const addResource = async (params) => {
+const addResource = async (params: Params): Promise<any> => {
   return changeResources({ method: 'POST', ...params });
 };
 
-const deleteResource = async (params) => {
+const deleteResource = async (params: Params): Promise<any> => {
   return changeResources({ method: 'DELETE', ...params });
 };
 
-const getResources = async (params) => {
+const getResources = async (params: Params): Promise<any> => {
   return (await changeResources({ method: 'GET', ...params })).json();
 };
 

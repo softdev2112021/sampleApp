@@ -1,7 +1,20 @@
 import React from "react";
 import CardDetails from './cardDetails/CardDetails';
 
-const Card = ({ id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete, }) => {
+interface Card {
+  id: number;
+  title: string;
+  date: { weekDay: string; date: string };
+  content: {
+    data: { min: number; max: number; pop: string };
+    descr: string;
+    icon: string;
+  };
+  contentDetails: any[];
+  onDelete: (id: number) => void;
+}
+
+const Card = ({ id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete, }: Card) => {
   const cardDetails = contentDetails.map((content) => {
     return <CardDetails key={content.date.weekDay} {...content}/>
   });

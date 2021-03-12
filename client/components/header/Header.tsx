@@ -1,7 +1,14 @@
 import React from "react";
 import SearchForm from "./searchForm/SearchForm";
 
-const Header = ({ brandName, userName, avatar, onSearchSubmit }) => {
+interface Header {
+  brandName: string;
+  userName: string;
+  avatar: string;
+  onSearchSubmit: any;
+}
+
+const Header = ({ brandName, userName, avatar, onSearchSubmit }: Header) => {
   return (
     <div className="header navbar-default">
       <div className="navbar-brand">

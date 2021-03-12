@@ -1,5 +1,14 @@
 import React from "react";
 
+interface CardDetails {
+  date: { weekDay: string; date: string };
+  content: {
+    data: { min: number; max: number; pop: string };
+    descr: string;
+    icon: string;
+  };
+}
+
 const CardDetails = ({
   date: { weekDay, date },
   content: {
@@ -7,7 +16,7 @@ const CardDetails = ({
     descr,
     icon,
   },
-}) => {
+}: CardDetails) => {
   return (
     <div className="col-4 mb-2 d-flex flex-column align-items-center">
       <div className="f-s-12 f-w-800 height-10">{weekDay}/{date}</div>

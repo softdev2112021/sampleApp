@@ -4,7 +4,28 @@ import config from './weatherApiCfg';
 
 const { entrypoints: { locations }, iconsURL } = config;
 
-const getLocations = async (params) => {
+interface Locations {
+  id: number;
+  title: string;
+  date: {
+    weekDay: string;
+    date: string;
+  };
+  content: { data: number; descr: string; icon: string };
+  contentDetails: {
+    date: {
+      weekDay: string;
+      date: string;
+    };
+    content: {
+      data: { min: number; max: number; pop: string };
+      descr: string;
+      icon: string;
+    };
+  };
+}             
+
+const getLocations = async (params: any): Promise<Locations[]> => {
   return getResources({ url: locations, ...params }).then((data) => {
     try {
       return data.map(({ id, name, forecast: { current: { dt, temp, description, icon}, daily } }) => {
@@ -32,11 +53,11 @@ const getLocations = async (params) => {
   });
 };
 
-const addLocation = async (params) => {
+const addLocation = async (params: any): Promise<any> => {
   return addResource({ url: locations, ...params });
 };
 
-const deleteLocation = async (params) => {
+const deleteLocation = async (params: any): Promise<any> => {
   return deleteResource({ url: locations, ...params });
 };
 
