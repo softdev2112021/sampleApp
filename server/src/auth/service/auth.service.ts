@@ -16,7 +16,9 @@ export class AuthService {
       where: { login },
     });
 
-    if (user && (await bcrypt.compare(pass, user.passwordHash))) {
+    const comparison = await bcrypt.compare(pass, user.passwordHash);
+
+    if (user && comparison) {
       const { passwordHash, ...secureUser } = user;
       return secureUser;
     }
