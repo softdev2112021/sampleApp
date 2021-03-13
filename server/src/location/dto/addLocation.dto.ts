@@ -1,4 +1,9 @@
-import { IsString, IsNotEmpty, ArrayMinSize, ArrayMaxSize } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  ArrayMinSize,
+  ArrayMaxSize,
+} from 'class-validator';
 
 export class AddLocationDto {
   @IsString()

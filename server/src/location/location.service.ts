@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { WeatherService } from '../weather/services/weather.service';
 import { Connection, Repository } from 'typeorm';
-import { User } from '../user/user.entity';
-import { Location } from './location.entity';
+import { UserEntity } from '../user/user.entity';
+import { LocationEntity } from './location.entity';
 import { AddLocation } from './interfaces/addLocation.interface';
 import { DeleteLocation } from './interfaces/deleteLocation.interface';
 
 @Injectable()
 export class LocationService {
-  private locationRepository: Repository<Location>;
+  private locationRepository: Repository<LocationEntity>;
   constructor(
     private connection: Connection,
     private weatherService: WeatherService,
   ) {
-    this.locationRepository = this.connection.getRepository(Location);
+    this.locationRepository = this.connection.getRepository(LocationEntity);
   }
 
-  async getLocations(user: User): Promise<Location[]> {
+  async getLocations(user: UserEntity): Promise<LocationEntity[]> {
     const locations = await this.locationRepository.find({
       where: { user },
     });
@@ -33,14 +33,14 @@ export class LocationService {
     );
   }
 
-  async addLocation(user: User, addLocation: AddLocation): Promise<void> {
+  async addLocation(user: UserEntity, addLocation: AddLocation): Promise<void> {
     const location = this.locationRepository.create(addLocation);
     location.user = user;
     await this.locationRepository.save(location);
   }
 
   async deleteLocation(
-    user: User,
+    user: UserEntity,
     deleteLocation: DeleteLocation,
   ): Promise<void> {
     const location = await this.locationRepository.findOne(deleteLocation.id, {

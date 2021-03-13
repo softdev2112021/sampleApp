@@ -1,43 +1,35 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Delete,
-  Req,
-  Body,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, UseGuards } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
-import { Location } from './location.entity';
+import { LocationEntity } from './location.entity';
+import { User } from 'src/user/user.decorator';
+import { UserEntity } from 'src/user/user.entity';
 
 @Controller('locations')
+@UseGuards(AuthGuard('jwt'))
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 
-  @UseGuards(AuthGuard('jwt'))
   @Get()
-  async getLocations(@Req() req): Promise<Location[]> {
-    return this.locationService.getLocations(req.user);
+  async getLocations(@User() user: UserEntity): Promise<LocationEntity[]> {
+    return this.locationService.getLocations(user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Post()
   async addLocation(
     @Body() addLocationDto: AddLocationDto,
-    @Req() req,
+    @User() user: UserEntity,
   ): Promise<void> {
-    return this.locationService.addLocation(req.user.id, addLocationDto);
+    return this.locationService.addLocation(user, addLocationDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Delete()
   async deleteLocation(
     @Body() deleteLocationDto: DeleteLocationDto,
-    @Req() req,
+    @User() user: UserEntity,
   ): Promise<void> {
-    return this.locationService.deleteLocation(req.user.id, deleteLocationDto);
+    return this.locationService.deleteLocation(user, deleteLocationDto);
   }
 }

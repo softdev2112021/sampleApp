@@ -1,5 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { Forecast } from './interfaces/forecast.interface';
+import { Coords } from './interfaces/coords.interface';
+import { Forecast, ForecastDaily } from './interfaces/forecast.interface';
 import * as config from './openweather.service.cfg.json';
 
 const {
@@ -17,7 +18,7 @@ const {
 export class OpenWeatherService {
   constructor(private http: HttpService) {}
 
-  async getOpenWeatherForecast([lat, lon]: [number, number]): Promise<Forecast> {
+  async getOpenWeatherForecast([lat, lon]: Coords): Promise<Forecast> {
     return await this.http
       .get(`${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(',',)}&units=${units}&appid=${apiKey}`)
       .toPromise()
@@ -27,8 +28,6 @@ export class OpenWeatherService {
             current: {
               dt,
               temp,
-              rain,
-              snow,
               weather: [{ description, icon }],
             },
             daily,
@@ -38,16 +37,12 @@ export class OpenWeatherService {
             ({
               dt,
               temp: { min, max },
-              rain,
-              snow,
               pop,
               weather: [{ description, icon }],
-            }) => {
+            }: ForecastDaily): ForecastDaily => {
               return {
                 dt,
                 temp: { min, max },
-                rain,
-                snow,
                 description,
                 icon,
                 pop,
@@ -59,8 +54,6 @@ export class OpenWeatherService {
             current: {
               dt,
               temp,
-              rain,
-              snow,
               description,
               icon,
             },

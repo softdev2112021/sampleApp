@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Location } from '../location/location.entity';
+import { LocationEntity } from '../location/location.entity';
 
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,6 +12,6 @@ export class User {
   @Column({ nullable: false })
   passwordHash?: string;
 
-  @OneToMany(() => Location, (location) => location.user)
-  locations?: Location[];
+  @OneToMany(() => LocationEntity, (location) => location.user)
+  locations?: LocationEntity[];
 }
