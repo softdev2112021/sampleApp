@@ -22,6 +22,7 @@ import { WeatherModule } from './weather/weather.module';
         PORT: Joi.number(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRES_IN: Joi.string().required(),
+        API_KEY: Joi.string().required(),
       }),
     }),
     DbModule,

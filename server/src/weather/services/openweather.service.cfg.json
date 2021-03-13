@@ -1,5 +1,4 @@
 {
-  "apiKey": "8a6b4762952d2cee6e1135797a3e89be",
   "baseURL": "http://api.openweathermap.org/data/2.5/",
   "entrypoints": {
     "type": { 

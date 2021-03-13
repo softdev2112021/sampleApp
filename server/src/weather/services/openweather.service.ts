@@ -1,10 +1,10 @@
 import { Injectable, HttpService } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Coords } from './interfaces/coords.interface';
 import { Forecast, ForecastDaily } from './interfaces/forecast.interface';
 import * as config from './openweather.service.cfg.json';
 
 const {
-  apiKey,
   baseURL,
   entrypoints: {
     type: { onecall },
@@ -16,11 +16,20 @@ const {
 
 @Injectable()
 export class OpenWeatherService {
-  constructor(private http: HttpService) {}
+  constructor(
+    private http: HttpService,
+    private configService: ConfigService,
+  ) {}
 
   async getOpenWeatherForecast([lat, lon]: Coords): Promise<Forecast> {
+    const apiKey = this.configService.get<string>('API_KEY');
+
     return await this.http
-      .get(`${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(',',)}&units=${units}&appid=${apiKey}`)
+      .get(
+        `${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(
+          ',',
+        )}&units=${units}&appid=${apiKey}`,
+      )
       .toPromise()
       .then(
         ({
