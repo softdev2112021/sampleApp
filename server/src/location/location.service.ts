@@ -1,20 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { WeatherService } from '../weather/services/weather.service';
-import { Connection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { LocationEntity } from './location.entity';
 import { AddLocation } from './interfaces/addLocation.interface';
 import { DeleteLocation } from './interfaces/deleteLocation.interface';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LocationService {
-  private locationRepository: Repository<LocationEntity>;
   constructor(
-    private readonly connection: Connection,
+    @InjectRepository(LocationEntity)
+    private locationRepository: Repository<LocationEntity>,
     private readonly weatherService: WeatherService,
-  ) {
-    this.locationRepository = this.connection.getRepository(LocationEntity);
-  }
+  ) {}
 
   async getLocations(user: UserEntity): Promise<LocationEntity[]> {
     const locations = await this.locationRepository.find({

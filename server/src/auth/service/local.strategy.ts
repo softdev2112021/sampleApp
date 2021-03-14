@@ -7,9 +7,7 @@ import { SecureUser } from './interfaces/secureUser.interface';
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
-    super({
-      usernameField: 'login',
-    });
+    super({ usernameField: 'login' });
   }
 
   async validate(login: string, password: string): Promise<SecureUser> {

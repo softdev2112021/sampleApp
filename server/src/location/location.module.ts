@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { LocationEntity } from './location.entity';
 import { LocationService } from './location.service';
 import { LocationController } from './location.controller';
-import { UserModule } from '../user/user.module';
 import { WeatherModule } from '../weather/weather.module';
 
 @Module({
-  imports: [UserModule, WeatherModule],
+  imports: [TypeOrmModule.forFeature([LocationEntity]), WeatherModule],
   controllers: [LocationController],
   providers: [LocationService],
 })
