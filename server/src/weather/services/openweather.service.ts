@@ -1,7 +1,12 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Coords } from './interfaces/coords.interface';
-import { Forecast, ForecastDaily } from './interfaces/forecast.interface';
+import {
+  Forecast,
+  ForecastDay,
+  OpenWeatherDay,
+  OpenWeatherForecast,
+} from './interfaces/forecast.interface';
 import * as config from './openweather.service.cfg.json';
 
 const {
@@ -21,43 +26,47 @@ export class OpenWeatherService {
     private configService: ConfigService,
   ) {}
 
-  async getOpenWeatherForecast([lat, lon]: Coords): Promise<Forecast> {
+  async getOpenWeatherForecast(coords: Coords): Promise<Forecast> {
+    const [lat, lon] = coords;
     const apiKey = this.configService.get<string>('API_KEY');
+    const url = `${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(
+      ',',
+    )}&units=${units}&appid=${apiKey}`;
 
-    return await this.http
-      .get(
-        `${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(
-          ',',
-        )}&units=${units}&appid=${apiKey}`,
-      )
-      .toPromise()
-      .then(
-        ({
-          data: {
-            current: {
-              dt,
-              temp,
-              weather: [{ description, icon }],
-            },
-            daily,
-          },
-        }) => {
-          const dailyWeather = daily.map(
-            ({
+    const convertDaily = (
+      forecastDaily: OpenWeatherDay[],
+      maxDays: number,
+    ): ForecastDay[] => {
+      return forecastDaily
+        .map(
+          (forecastDay: OpenWeatherDay): ForecastDay => {
+            const {
               dt,
               temp: { min, max },
               pop,
               weather: [{ description, icon }],
-            }: ForecastDaily): ForecastDaily => {
-              return {
+            } = forecastDay;
+            return { dt, temp: { min, max }, pop, description, icon };
+          },
+        )
+        .splice(1, maxDays);
+    };
+
+    return await this.http
+      .get(url)
+      .toPromise()
+      .then(
+        (forecast: OpenWeatherForecast): Forecast => {
+          const {
+            data: {
+              current: {
                 dt,
-                temp: { min, max },
-                description,
-                icon,
-                pop,
-              };
+                temp,
+                weather: [{ description, icon }],
+              },
+              daily,
             },
-          );
+          } = forecast;
 
           return {
             current: {
@@ -66,7 +75,7 @@ export class OpenWeatherService {
               description,
               icon,
             },
-            daily: dailyWeather.splice(1, forecastDays),
+            daily: convertDaily(daily, forecastDays),
           };
         },
       );
