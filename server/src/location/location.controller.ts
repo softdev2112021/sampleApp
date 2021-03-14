@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Delete, Body, UseGuards } from '@nestjs/common';
 import { LocationService } from './location.service';
-import { AuthGuard } from '@nestjs/passport';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
 import { LocationEntity } from './location.entity';
-import { User } from 'src/user/user.decorator';
-import { UserEntity } from 'src/user/user.entity';
+import { User } from '../user/user.decorator';
+import { UserEntity } from '../user/user.entity';
+import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
 
 @Controller('locations')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 
