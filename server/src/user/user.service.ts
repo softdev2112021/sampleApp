@@ -15,8 +15,4 @@ export class UserService {
       where: { login },
     });
   }
-
-  async getUserRepository() {
-    return this.userRepository;
-  }
 }

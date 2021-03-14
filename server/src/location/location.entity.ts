@@ -1,4 +1,4 @@
-import { Forecast } from 'src/weather/services/interfaces/forecast.interface';
+import { Forecast } from '../weather/services/interfaces/forecast.interface';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 
