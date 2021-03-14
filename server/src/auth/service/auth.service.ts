@@ -7,7 +7,10 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   private userRepository: Repository<UserEntity>;
-  constructor(private jwtService: JwtService, private connection: Connection) {
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly connection: Connection,
+  ) {
     this.userRepository = this.connection.getRepository(UserEntity);
   }
 

@@ -5,7 +5,7 @@ import { Coords } from './interfaces/coords.interface';
 
 @Injectable()
 export class WeatherService {
-  constructor(private openWeatherService: OpenWeatherService) {}
+  constructor(private readonly openWeatherService: OpenWeatherService) {}
 
   async getWeatherForecast(coords: Coords): Promise<Forecast> {
     return this.openWeatherService.getOpenWeatherForecast(coords);

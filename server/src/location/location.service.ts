@@ -10,8 +10,8 @@ import { DeleteLocation } from './interfaces/deleteLocation.interface';
 export class LocationService {
   private locationRepository: Repository<LocationEntity>;
   constructor(
-    private connection: Connection,
-    private weatherService: WeatherService,
+    private readonly connection: Connection,
+    private readonly weatherService: WeatherService,
   ) {
     this.locationRepository = this.connection.getRepository(LocationEntity);
   }

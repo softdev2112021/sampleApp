@@ -22,8 +22,8 @@ const {
 @Injectable()
 export class OpenWeatherService {
   constructor(
-    private http: HttpService,
-    private configService: ConfigService,
+    private readonly http: HttpService,
+    private readonly configService: ConfigService,
   ) {}
 
   async getOpenWeatherForecast(coords: Coords): Promise<Forecast> {
