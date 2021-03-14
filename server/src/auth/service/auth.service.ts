@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Connection, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { SecureUser } from './interfaces/secureUser.interface';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     this.userRepository = this.connection.getRepository(UserEntity);
   }
 
-  async validateUser(login: string, pass: string): Promise<UserEntity | null> {
+  async validateUser(login: string, pass: string): Promise<SecureUser | null> {
     const user: UserEntity = await this.userRepository.findOne({
       where: { login },
     });

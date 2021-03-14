@@ -10,7 +10,7 @@ export class UserEntity {
   login: string;
 
   @Column({ nullable: false })
-  passwordHash?: string;
+  passwordHash: string;
 
   @OneToMany(() => LocationEntity, (location) => location.user)
   locations?: LocationEntity[];
