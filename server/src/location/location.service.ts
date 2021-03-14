@@ -46,10 +46,9 @@ export class LocationService {
       relations: ['user'],
     });
 
-    // TODO Fix bug, check doesn't work
-    // if (user.id !== location.user.id) {
-    //   throw new Error('No operation');
-    // }
+    if (user.id !== location.user.id) {
+      throw new Error('No operation');
+    }
 
     await this.locationRepository.delete(deleteLocation.id);
   }
