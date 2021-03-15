@@ -4,7 +4,6 @@ import Card from '../../components/card/Card';
 import Cache from '../../lib/cache/Cache';
 import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
-import Layout from '../../components/layout/Layout';
 import Location from '../../lib/api/weatherApi/interfaces/Location';
 
 const storage = new LocalStorage();
@@ -113,14 +112,14 @@ const Locations = () => {
   }
 
   return !locationsLoading && (
-    <Layout>
+    <>
       <Header {...headerProps} />
       <div className="content-full-width p-20">
         <div className="row">
           {!locationsLoading && locationElements}
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
