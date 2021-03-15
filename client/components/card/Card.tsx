@@ -1,6 +1,6 @@
 import CardDetails from './cardDetails/CardDetails';
 
-interface Card {
+interface CardProps {
   id: number;
   title: string;
   date: { weekDay: string; date: string };
@@ -13,7 +13,8 @@ interface Card {
   onDelete: (id: number) => void;
 }
 
-const Card = ({ id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete, }: Card) => {
+const Card = (props: CardProps) => {
+  const { id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete } = props;
   const cardDetails = contentDetails.map((content) => {
     return <CardDetails key={content.date.weekDay} {...content}/>
   });

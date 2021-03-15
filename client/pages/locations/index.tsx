@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
-import Location from '../../lib/api/weatherApi/interfaces/Location';
+import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/interfaces/Location';
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
@@ -26,18 +26,19 @@ const Locations = () => {
       });
   };
 
-  const onLocationAdd = ([{ name, coord: { lat, lon } }]: Location[]): void => {
+  const onLocationAdd = (props: [CityProps]): void => {
+    const [{ name, coord: { lat, lon } }] = props;
+
     if (locations.length >= 10) return;
 
-    const data = {
+    const data: LocationCoords = {
       name,
       coords: [lat, lon],
     };
 
     addLocation({ data })
-      .then((data) => {
-        console.log(data)
-        setLocations((locations) => [...locations, ...data]);
+      .then((location: Location[]) => {
+        setLocations((prevLocations: Location[]) => [...prevLocations, ...location]);
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
@@ -55,9 +56,9 @@ const Locations = () => {
 
   useEffect(() => {
     getLocations()
-      .then((data) => {
+      .then((locations: Location[]) => {
         setLocationsLoading(false);
-        setLocations(data);
+        setLocations(locations);
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);

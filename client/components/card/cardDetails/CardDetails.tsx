@@ -1,4 +1,4 @@
-interface CardDetails {
+interface CardDetailsProps {
   date: { weekDay: string; date: string };
   content: {
     data: { min: number; max: number; pop: string };
@@ -7,14 +7,16 @@ interface CardDetails {
   };
 }
 
-const CardDetails = ({
-  date: { weekDay, date },
-  content: {
-    data: { min, max, pop },
-    descr,
-    icon,
-  },
-}: CardDetails) => {
+const CardDetails = (props: CardDetailsProps) => {
+  const {
+    date: { weekDay, date },
+    content: {
+      data: { min, max, pop },
+      descr,
+      icon,
+    },
+  } = props;
+  
   return (
     <div className="col-4 mb-2 d-flex flex-column align-items-center">
       <div className="f-s-12 f-w-800 height-10">{weekDay}/{date}</div>

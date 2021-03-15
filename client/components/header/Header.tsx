@@ -1,13 +1,15 @@
 import SearchForm from "./searchForm/SearchForm";
 
-interface Header {
+interface HeaderProps {
   brandName: string;
   userName: string;
   avatar: string;
   onSearchSubmit: any;
 }
 
-const Header = ({ brandName, userName, avatar, onSearchSubmit }: Header) => {
+const Header = (props: HeaderProps) => {
+  const { brandName, userName, avatar, onSearchSubmit } = props;
+  
   return (
     <div className="header navbar-default">
       <div className="navbar-brand">
