@@ -23,38 +23,36 @@ interface Locations {
       icon: string;
     };
   };
-}             
+}    
 
-const getLocations = async (params: any): Promise<Locations[]> => {
-  return getResources({ url: locations, ...params }).then((data) => {
-    try {
-      return data.map(({ id, name, forecast: { current: { dt, temp, description, icon}, daily } }) => {
-        const contentDetails = daily.map(({ dt, temp: { min, max }, description, pop, icon }) => {
-          return {
-            date: convertTime(dt), 
-            content: { 
-              data: { min: Math.floor(min), max: Math.floor(max), pop: `${Math.floor(pop*100)}%` },
-              descr: description,
-              icon: `${iconsURL}/${icon}@2x.png`
-            }
-          }
-        });
+const convertLocations = (data) => {
+    return data.map(({ id, name, forecast: { current: { dt, temp, description, icon}, daily } }) => {
+      const contentDetails = daily.map(({ dt, temp: { min, max }, description, pop, icon }) => {
         return {
-          id,
-          title: name,
-          date: convertTime(dt),
-          content: { data: Math.floor(temp), descr: description, icon: `${iconsURL}/${icon}@4x.png` },
-          contentDetails,
+          date: convertTime(dt), 
+          content: { 
+            data: { min: Math.floor(min), max: Math.floor(max), pop: `${Math.floor(pop*100)}%` },
+            descr: description,
+            icon: `${iconsURL}/${icon}@2x.png`
+          }
         }
       });
-    } catch (e) {
-      return data;
-    }
-  });
+      return {
+        id,
+        title: name,
+        date: convertTime(dt),
+        content: { data: Math.floor(temp), descr: description, icon: `${iconsURL}/${icon}@4x.png` },
+        contentDetails,
+      }
+    });
+}
+
+const getLocations = async (): Promise<Locations[]> => {
+  return getResources({ url: locations }).then((data) => convertLocations(data));
 };
 
 const addLocation = async (params: any): Promise<any> => {
-  return addResource({ url: locations, ...params });
+  return addResource({ url: locations, ...params }).then((data) => convertLocations([data]));
 };
 
 const deleteLocation = async (params: any): Promise<any> => {

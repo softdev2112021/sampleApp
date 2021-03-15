@@ -1,6 +1,5 @@
 interface Params {
   url: string;
-  accessToken: string;
   data?: any;
 }
 
@@ -21,7 +20,7 @@ const postData = async (url: string, data: any): Promise<any>  => {
   return res;
 };
 
-const changeResources = async ({ method, url, accessToken, data = null }: Options): Promise<any> => {
+const changeResources = async ({ method, url, data = null }: Options): Promise<any> => {
   const options = {
     credentials: 'include',
     method,
@@ -46,7 +45,7 @@ const changeResources = async ({ method, url, accessToken, data = null }: Option
 };
 
 const addResource = async (params: Params): Promise<any> => {
-  return changeResources({ method: 'POST', ...params });
+  return (await changeResources({ method: 'POST', ...params })).json();
 };
 
 const deleteResource = async (params: Params): Promise<any> => {

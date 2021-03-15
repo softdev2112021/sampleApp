@@ -1,23 +1,16 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
-import Cache from '../../lib/cache/Cache';
-import LocalStorage from '../../lib/cache/storages/LocalStorage';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import Location from '../../lib/api/weatherApi/interfaces/Location';
-
-const storage = new LocalStorage();
-const cache = new Cache(storage);
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
   const [locationsLoading, setLocationsLoading] = useState(true);
   
   const onLocationDelete = (id: number): void => {
-    const token = cache.read("token");
-
-    setLocations((location) => location.filter((item) => item.id !== id));
-    deleteLocation({ ...token, data: { id } })
+    setLocations((locations) => locations.filter((item) => item.id !== id));
+    deleteLocation({ data: { id } })
       .then((data) => {
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
@@ -41,35 +34,18 @@ const Locations = () => {
       coords: [lat, lon],
     };
 
-    const token = cache.read("token");
-
-    addLocation({ ...token, data })
+    addLocation({ data })
       .then((data) => {
+        console.log(data)
+        setLocations((locations) => [...locations, ...data]);
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
         //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
         // }
-        getLocations(token)
-          .then((data) => {
-            setLocations(data);
-            // TODO: Add logger
-            // if (typeof(data) !== 'object') {
-            //   logger.warn(`Server: ${data}`);
-            // } else {
-            //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-            // }
-          })
-          .catch((e) => {
-            // TODO: Add logger
-            // setOutput(error.network);
-            // logger.error(`getOperators: ${e.message}`);
-          });
-
       })
       .catch((e) => {
-        setLocationsLoading(false);
         // TODO: Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
@@ -78,7 +54,7 @@ const Locations = () => {
 
 
   useEffect(() => {
-    getLocations(cache.read("token"))
+    getLocations()
       .then((data) => {
         setLocationsLoading(false);
         setLocations(data);
