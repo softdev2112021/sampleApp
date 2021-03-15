@@ -1,4 +1,3 @@
-import React from "react";
 import SearchForm from "./searchForm/SearchForm";
 
 interface Header {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { postData } from "../../lib/services/services";
 import swal from "sweetalert";
 // import axios from "axios";
@@ -20,6 +20,7 @@ const Login = () => {
 
     const res = await postData(`${process.env.appHost}:${process.env.appPort}/auth/login`, JSON.stringify(data));
 
+    // TODO: use axios
     // const res = await axios.post(
     //   `${process.env.appHost}:${process.env.appPort}/auth/login`,
     //   data,

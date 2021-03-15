@@ -1,5 +1,3 @@
-import React from "react";
-
 interface CardDetails {
   date: { weekDay: string; date: string };
   content: {

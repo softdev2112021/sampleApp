@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import Cache from '../../lib/cache/Cache';
