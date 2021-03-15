@@ -21,7 +21,7 @@ export class LocationController {
   async addLocation(
     @Body() addLocationDto: AddLocationDto,
     @User() user: UserEntity,
-  ): Promise<void> {
+  ): Promise<LocationEntity> {
     return this.locationService.addLocation(user, addLocationDto);
   }
 

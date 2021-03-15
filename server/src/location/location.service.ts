@@ -32,10 +32,16 @@ export class LocationService {
     );
   }
 
-  async addLocation(user: UserEntity, addLocation: AddLocation): Promise<void> {
+  async addLocation(user: UserEntity, addLocation: AddLocation): Promise<LocationEntity> {
     const location = this.locationRepository.create(addLocation);
     location.user = user;
     await this.locationRepository.save(location);
+
+    return {
+      id: location.id,
+      forecast: await this.weatherService.getWeatherForecast(location.coords),
+      ...addLocation,
+    };
   }
 
   async deleteLocation(
