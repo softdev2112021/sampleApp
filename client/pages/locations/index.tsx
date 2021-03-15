@@ -28,7 +28,6 @@ const Locations = () => {
         // }
       })
       .catch((e) => {
-        setLocationsLoading(false);
         // TODO: Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
@@ -55,7 +54,6 @@ const Locations = () => {
         // }
         getLocations(token)
           .then((data) => {
-            setLocationsLoading(false);
             setLocations(data);
             // TODO: Add logger
             // if (typeof(data) !== 'object') {
@@ -65,7 +63,6 @@ const Locations = () => {
             // }
           })
           .catch((e) => {
-            setLocationsLoading(false);
             // TODO: Add logger
             // setOutput(error.network);
             // logger.error(`getOperators: ${e.message}`);
@@ -79,6 +76,7 @@ const Locations = () => {
         // logger.error(`getOperators: ${e.message}`);
       });
   };
+
 
   useEffect(() => {
     getLocations(cache.read("token"))
@@ -95,6 +93,8 @@ const Locations = () => {
       .catch((e) => {
         setLocationsLoading(false);
         // TODO: Add logger
+        // redirect to login
+        // add redirect to login
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -112,7 +112,7 @@ const Locations = () => {
     onSearchSubmit: onLocationAdd
   }
 
-  return (
+  return !locationsLoading && (
     <Layout>
       <Header {...headerProps} />
       <div className="content-full-width p-20">

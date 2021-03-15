@@ -10,6 +10,7 @@ interface Options extends Params {
 
 const postData = async (url: string, data: any): Promise<any>  => {
   let res = await fetch(url, {
+    credentials: 'include',
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,10 +23,10 @@ const postData = async (url: string, data: any): Promise<any>  => {
 
 const changeResources = async ({ method, url, accessToken, data = null }: Options): Promise<any> => {
   const options = {
+    credentials: 'include',
     method,
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
     body: null,

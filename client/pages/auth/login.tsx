@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { postData } from '../../lib/services/services';
-import LocalStorage from '../../lib/cache/storages/LocalStorage';
-import Cache from '../../lib/cache/Cache';
-import swal from 'sweetalert';
-
-const storage = new LocalStorage();
-const cache = new Cache(storage);
+import React, { useState, useEffect } from "react";
+import { postData } from "../../lib/services/services";
+import swal from "sweetalert";
+// import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +20,11 @@ const Login = () => {
 
     const res = await postData(`${process.env.appHost}:${process.env.appPort}/auth/login`, JSON.stringify(data));
 
-    cache.write('token', await res.json());
+    // const res = await axios.post(
+    //   `${process.env.appHost}:${process.env.appPort}/auth/login`,
+    //   data,
+    //   { withCredentials: true },
+    // )
 
     if (res.ok) {
       location.href = '/locations';
