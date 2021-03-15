@@ -2,33 +2,53 @@ import { UserEntity } from '../user/user.entity';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { SecureUser } from './interfaces/secureUser.interface';
 import { UserService } from '../user/user.service';
+import { ConfigService } from '@nestjs/config';
+import { CookieSettings } from './interfaces/cookieSettings.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
   ) {}
 
-  async validateUser(login: string, pass: string): Promise<SecureUser | null> {
-    const user: UserEntity = await this.userService.getUserByLogin(login);
+  async validateUser(login: string, pass: string): Promise<UserEntity | null> {
+    const user: UserEntity = await this.userService.getByLogin(login);
 
     const comparison = await bcrypt.compare(pass, user.passwordHash);
 
     if (user && comparison) {
-      const { passwordHash, ...secureUser } = user;
-      return secureUser;
+      return user;
     }
 
     return null;
   }
 
-  async login(user: UserEntity): Promise<{ accessToken: string }> {
-    const payload = { id: user.id };
+  public login(user: UserEntity): CookieSettings {
+    const payload: { login: string } = { login: user.login };
+    const token = this.jwtService.sign(payload);
+    const maxAge = parseFloat(this.configService.get('JWT_EXPIRES_IN'));
     return {
-      accessToken: this.jwtService.sign(payload),
+      name: 'Authentication',
+      value: token,
+      options: {
+        maxAge,
+        path: '/',
+        httpOnly: true,
+      },
+    };
+  }
+
+  public logout(): CookieSettings {
+    return {
+      name: 'Authentication',
+      options: {
+        maxAge: 0,
+        path: '/',
+        httpOnly: true,
+      },
     };
   }
 }

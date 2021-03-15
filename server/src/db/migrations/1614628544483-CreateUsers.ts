@@ -9,19 +9,21 @@ export class CreateUsers1614628544483 implements MigrationInterface {
     );
 
     interface UserData {
+      name: string;
       login: string;
       password: string;
     }
 
     const usersData: UserData[] = [
-      { login: 'user1@gmail.com', password: 'pass1' },
-      { login: 'user2@gmail.com', password: 'pass2' },
-      { login: 'user3@gmail.com', password: 'pass3' },
+      { name: 'user1', login: 'user1@gmail.com', password: 'pass1' },
+      { name: 'user2', login: 'user2@gmail.com', password: 'pass2' },
+      { name: 'user3', login: 'user3@gmail.com', password: 'pass3' },
     ];
 
     const users: UserEntity[] = await Promise.all(
       usersData.map(async (user: UserData) => {
         return userRepository.create({
+          name: user.name,
           login: user.login,
           passwordHash: await bcrypt.hash(user.password, 10),
         });
