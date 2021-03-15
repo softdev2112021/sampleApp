@@ -20,7 +20,7 @@ const Locations = () => {
     setLocations((location) => location.filter((item) => item.id !== id));
     deleteLocation({ ...token, data: { id } })
       .then((data) => {
-        //TODO Add logger
+        // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -29,7 +29,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
-        //TODO Add logger
+        // TODO: Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -47,7 +47,7 @@ const Locations = () => {
 
     addLocation({ ...token, data })
       .then((data) => {
-        //TODO Add logger
+        // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -57,7 +57,7 @@ const Locations = () => {
           .then((data) => {
             setLocationsLoading(false);
             setLocations(data);
-            //TODO Add logger
+            // TODO: Add logger
             // if (typeof(data) !== 'object') {
             //   logger.warn(`Server: ${data}`);
             // } else {
@@ -66,7 +66,7 @@ const Locations = () => {
           })
           .catch((e) => {
             setLocationsLoading(false);
-            //TODO Add logger
+            // TODO: Add logger
             // setOutput(error.network);
             // logger.error(`getOperators: ${e.message}`);
           });
@@ -74,7 +74,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
-        //TODO Add logger
+        // TODO: Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -85,7 +85,7 @@ const Locations = () => {
       .then((data) => {
         setLocationsLoading(false);
         setLocations(data);
-        //TODO Add logger
+        // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
         // } else {
@@ -94,7 +94,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
-        //TODO Add logger
+        // TODO: Add logger
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
@@ -104,7 +104,7 @@ const Locations = () => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
   });
 
-  //TODO create new request to load User data from DB
+  // TODO: create new request to load User data from DB
   const headerProps = {
     brandName: 'Forecastic',
     userName: 'user',

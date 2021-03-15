@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typeahead, Highlighter } from "react-bootstrap-typeahead";
 import Location from '../../../lib/api/weatherApi/interfaces/Location';
-//TODO Make loading cityList from DB as it is too heavy to start on client
+// TODO: Make loading cityList from DB as it is too heavy to start on client
 import cities from '../../../lib/api/weatherApi/cityList.json';
 
 interface OnSubmit {
