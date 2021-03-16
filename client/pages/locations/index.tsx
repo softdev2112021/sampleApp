@@ -6,6 +6,7 @@ import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/in
 import config from '../../lib/api/weatherApi/weatherApiCfg';
 import swal from "sweetalert";
 import { useRouter } from 'next/router';
+import { postData } from '../../lib/services/services';
 
 const { maxLocations } = config;
 
@@ -14,11 +15,13 @@ const Locations = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [locationsLoading, setLocationsLoading] = useState(true);
   const router = useRouter();
-  
-  const onLocationDelete = (id: number): void => {
-    setLocations((locations) => locations.filter((item) => item.id !== id));
-    deleteLocation({ data: { id } })
-      .then((data) => {
+
+  useEffect(() => {
+    getLocations()
+      .then((locations: Location[]) => {
+        setLoggedIn(true);
+        setLocationsLoading(false);
+        setLocations(locations);
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
@@ -27,12 +30,16 @@ const Locations = () => {
         // }
       })
       .catch((e) => {
+        setLocationsLoading(false);
+        router.push('/auth/login');
         // TODO: Add logger
+        // redirect to login
+        // add redirect to login
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
-  };
-
+  }, []);
+  
   const onLocationAdd = (props: [CityProps]): void => {
     const [{ name, coord: { lat, lon } }] = props;
     const locationsCoords: LocationCoords = {
@@ -95,13 +102,10 @@ const Locations = () => {
       });
   };
 
-
-  useEffect(() => {
-    getLocations()
-      .then((locations: Location[]) => {
-        setLoggedIn(true);
-        setLocationsLoading(false);
-        setLocations(locations);
+  const onLocationDelete = (id: number): void => {
+    setLocations((locations) => locations.filter((item) => item.id !== id));
+    deleteLocation({ data: { id } })
+      .then((data) => {
         // TODO: Add logger
         // if (typeof(data) !== 'object') {
         //   logger.warn(`Server: ${data}`);
@@ -110,15 +114,30 @@ const Locations = () => {
         // }
       })
       .catch((e) => {
-        setLocationsLoading(false);
-        router.push('/auth/login');
         // TODO: Add logger
-        // redirect to login
-        // add redirect to login
         // setOutput(error.network);
         // logger.error(`getOperators: ${e.message}`);
       });
-  }, []);
+  };
+
+  const onLogout = (): void => {
+    postData(`${process.env.appHost}:${process.env.appPort}/auth/logout`, null)
+      .then(() => {
+        // TODO: Add logger
+        setLoggedIn(false);
+        router.push('/auth/login');
+        // if (typeof(data) !== 'object') {
+        //   logger.warn(`Server: ${data}`);
+        // } else {
+        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
+        // }
+      })
+      .catch((e) => {
+        // TODO: Add logger
+        // setOutput(error.network);
+        // logger.error(`getOperators: ${e.message}`);
+      });
+  };
 
   const locationElements = locations.map((locationProps) => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
@@ -129,7 +148,8 @@ const Locations = () => {
     brandName: 'Forecastic',
     userName: 'user',
     avatar: '/img/user/profile.jpg',
-    onSearchSubmit: onLocationAdd
+    onSearchSubmit: onLocationAdd,
+    onLogout,
   }
 
   return loggedIn && (
