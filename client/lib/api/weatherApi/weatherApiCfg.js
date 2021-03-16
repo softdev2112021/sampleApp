@@ -5,6 +5,8 @@ const config = {
     locationsURL: `${baseURL}/locations`,
   },
   iconsURL: 'http://openweathermap.org/img/wn',
+  logInURL: `${baseURL}/auth/login`,
+  logOutURL: `${baseURL}/auth/logout`,
   maxLocations: 10,
 }
 

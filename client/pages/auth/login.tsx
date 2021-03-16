@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { postData } from "../../lib/services/services";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
-// import axios from "axios";
+import { LogIn } from "../../lib/api/weatherApi/interfaces/Auth";
+import { logIn } from "../../lib/api/weatherApi/weatherApi";
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,38 +16,32 @@ const Login = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = {
+    const data: LogIn = {
       login: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
     }
 
-    const res = await postData(`${process.env.appHost}:${process.env.appPort}/auth/login`, JSON.stringify(data));
-
-    // TODO: use axios
-    // const res = await axios.post(
-    //   `${process.env.appHost}:${process.env.appPort}/auth/login`,
-    //   data,
-    //   { withCredentials: true },
-    // )
-
-    if (res.ok) {
-      router.push('/locations');
-    } else {
-      swal({
-        title: "Access denied",
-        text: "Wrong auth data",
-        icon: 'error',
-        buttons: {
-          confirm: {
-            text: 'OK',
-            value: true,
-            visible: true,
-            className: 'btn btn-danger',
-            closeModal: true,
-          }
-        },
+    logIn({ data })
+      .then((data) => {
+        router.push("/locations");
+      })
+      .catch((e) => {
+        // TODO: logger
+        swal({
+          title: "Access denied",
+          text: "Wrong auth data",
+          icon: "error",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: true,
+              visible: true,
+              className: "btn btn-danger",
+              closeModal: true,
+            },
+          },
+        });
       });
-    }
   }
   
   return (

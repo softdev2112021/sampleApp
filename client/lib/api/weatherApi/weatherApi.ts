@@ -1,9 +1,10 @@
-import { getResources, addResource, deleteResource } from '../../services/services';
+import { getResources, addResource, deleteResource, postData } from '../../services/services';
 import convertTime from '../../utils/convertTime/convertTime';
 import { LocationCoords, Location, LocationApi, LocationDayApi } from './interfaces/Location';
 import config from './weatherApiCfg';
+import { LogIn, User } from "../../../lib/api/weatherApi/interfaces/Auth";
 
-const { entrypoints: { locationsURL }, iconsURL } = config;
+const { entrypoints: { locationsURL }, iconsURL, logInURL, logOutURL } = config;
 
 const convertLocations = (locations: LocationApi[]): Location[] => {
     return locations.map((location: LocationApi): Location => {
@@ -46,4 +47,12 @@ const deleteLocation = async (params: { data: { id: number } }): Promise<void> =
   return deleteResource({ url: locationsURL, ...params });
 };
 
-export { getLocations, addLocation, deleteLocation };
+const logIn = async (params: { data: LogIn }): Promise<User> => {
+  return postData({ url: logInURL, ...params });
+};
+
+const logOut = async (): Promise<void> => {
+  return postData({ url: logOutURL });
+};
+
+export { getLocations, addLocation, deleteLocation, logIn, logOut };

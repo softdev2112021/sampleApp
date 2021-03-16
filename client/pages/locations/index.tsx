@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
-import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
+import { addLocation, deleteLocation, getLocations, logOut } from '../../lib/api/weatherApi/weatherApi';
 import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/interfaces/Location';
 import config from '../../lib/api/weatherApi/weatherApiCfg';
 import swal from "sweetalert";
 import { useRouter } from 'next/router';
-import { postData } from '../../lib/services/services';
 
 const { maxLocations } = config;
 
@@ -121,7 +120,7 @@ const Locations = () => {
   };
 
   const onLogout = (): void => {
-    postData(`${process.env.appHost}:${process.env.appPort}/auth/logout`, null)
+    logOut()
       .then(() => {
         // TODO: Add logger
         setLoggedIn(false);
@@ -146,7 +145,7 @@ const Locations = () => {
   // TODO: create new request to load User data from DB
   const headerProps = {
     brandName: 'Forecastic',
-    userName: 'user',
+    userName: 'username1',
     avatar: '/img/user/profile.jpg',
     onSearchSubmit: onLocationAdd,
     onLogout,

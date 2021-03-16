@@ -7,14 +7,14 @@ interface Options extends Params {
   method: string;
 }
 
-const postData = async (url: string, data: any): Promise<any>  => {
+const postData = async ({ url, data}: Params): Promise<any>  => {
   let res = await fetch(url, {
     credentials: 'include',
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: data,
+    body: JSON.stringify(data),
   });
 
   return res;
