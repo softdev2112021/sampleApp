@@ -36,6 +36,7 @@
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
+    "nest-winston": "^1.4.0",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -44,7 +45,9 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
-    "typeorm": "^0.2.31"
+    "typeorm": "^0.2.31",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",
