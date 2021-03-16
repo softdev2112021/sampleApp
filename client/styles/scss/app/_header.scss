@@ -264,7 +264,7 @@
 			position: relative;
 		}
 		& .form-control {
-			width: rem(220px);
+			width: rem(320px);
 			padding: rem(5px) rem(15px);
 			height: rem(32px);
 			background: $light;
@@ -276,16 +276,16 @@
 			}
 			
 			&:focus {
-				width: rem(300px);
+				// width: rem(300px);
 				border-color: $light;
 				
-				@include box-shadow(none);
-				@include animation(navbar-input-expand .2s);
-				@include media-breakpoint-down(sm) {
-					width: 100%;
+				// @include box-shadow(none);
+				// @include animation(navbar-input-expand .2s);
+				// @include media-breakpoint-down(sm) {
+				// 	width: 100%;
 					
-					@include animation(none);
-				}
+				// 	@include animation(none);
+				// }
 			}
 		}
 		& .btn-search {

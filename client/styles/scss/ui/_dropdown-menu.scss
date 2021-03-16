@@ -5,6 +5,8 @@
 	@if $enable-rtl {
 		text-align: right;
 	}
+
+	min-width: 6rem !important;
 }
 .dropdown-item {
 	padding: rem(5px) rem(15px);
