@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { WeatherService } from '../weather/services/weather.service';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
@@ -10,6 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class LocationService {
   constructor(
+    @Inject(Logger)
+    private readonly logger: LoggerService,
     @InjectRepository(LocationEntity)
     private locationRepository: Repository<LocationEntity>,
     private readonly weatherService: WeatherService,
@@ -53,6 +55,7 @@ export class LocationService {
     });
 
     if (user.id !== location.user.id) {
+      this.logger.warn(`Delete location incompartible id`);
       throw new Error('No operation');
     }
 

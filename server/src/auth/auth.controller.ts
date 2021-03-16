@@ -2,6 +2,9 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Inject,
+  Logger,
+  LoggerService,
   Post,
   Res,
   UseGuards,
@@ -18,7 +21,11 @@ import { CookieSettings } from './interfaces/cookieSettings.interface';
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    @Inject(Logger)
+    private readonly logger: LoggerService,
+    private readonly authService: AuthService,
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -26,9 +33,11 @@ export class AuthController {
     @User() user: UserEntity,
     @Res({ passthrough: true }) res: Response,
   ): Promise<UserEntity> {
-    const { name, value, options }: CookieSettings = this.authService.login(user);
+    const { name, value, options }: CookieSettings = this.authService.login(
+      user,
+    );
     res.cookie(name, value, options);
-
+    this.logger.log(`${user.name} has logged in`);
     return user;
   }
 
@@ -36,12 +45,14 @@ export class AuthController {
   @Post('logout')
   async logout(@Res({ passthrough: true }) res: Response): Promise<void> {
     const { name, options }: CookieSettings = this.authService.logout();
+    this.logger.log(`User has logged out`);
     res.clearCookie(name, options);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@User() user: UserEntity): Promise<UserEntity> {
+    this.logger.log(`${user} has logged profile in`);
     return user;
   }
 }

@@ -1,4 +1,10 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import {
+  Injectable,
+  HttpService,
+  Logger,
+  Inject,
+  LoggerService,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Coords } from './interfaces/coords.interface';
 import {
@@ -22,6 +28,8 @@ const {
 @Injectable()
 export class OpenWeatherService {
   constructor(
+    @Inject(Logger)
+    private readonly logger: LoggerService,
     private readonly http: HttpService,
     private readonly configService: ConfigService,
   ) {}
@@ -68,6 +76,8 @@ export class OpenWeatherService {
             },
           } = forecast;
 
+          this.logger.log(`Successfully received OpenWeather forecast`);
+
           return {
             current: {
               dt,
@@ -78,6 +88,10 @@ export class OpenWeatherService {
             daily: convertDaily(daily, forecastDays),
           };
         },
-      );
+      )
+      .catch((e) => {
+        this.logger.error(`Could not get forecast: ${e.message}`);
+        return e;
+      });
   }
 }

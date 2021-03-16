@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocationEntity } from './location.entity';
 import { LocationService } from './location.service';
@@ -13,6 +13,6 @@ import { AuthModule } from '../auth/auth.module';
     AuthModule,
   ],
   controllers: [LocationController],
-  providers: [LocationService],
+  providers: [LocationService, Logger],
 })
 export class LocationModule {}
