@@ -1,9 +1,9 @@
 import { useState } from "react";
-import swal from "sweetalert";
 import { useRouter } from "next/router";
 import { LogIn } from "../../lib/api/weatherApi/interfaces/Auth";
 import { logIn } from "../../lib/api/weatherApi/weatherApi";
-
+import logger from "../../lib/logger/logger";
+import { errorMessage, showErrorAlert } from "../../lib/alerts/alerts";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,25 +22,18 @@ const Login = () => {
     }
 
     logIn({ data })
-      .then((data) => {
+      .then(() => {
+        logger.debug('Successfully logged in');
         router.push("/locations");
       })
       .catch((e) => {
-        // TODO: logger
-        swal({
-          title: "Access denied",
-          text: "Wrong auth data",
-          icon: "error",
-          buttons: {
-            confirm: {
-              text: "OK",
-              value: true,
-              visible: true,
-              className: "btn btn-danger",
-              closeModal: true,
-            },
-          },
-        });
+        if (e.message === "Failed to fetch") {
+          showErrorAlert(errorMessage.fetch);
+        } else {
+          showErrorAlert(errorMessage.auth);
+        }
+
+        logger.error(`Login error: ${e.message}`);
       });
   }
   

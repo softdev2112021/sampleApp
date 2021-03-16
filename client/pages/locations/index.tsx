@@ -3,9 +3,10 @@ import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import { addLocation, deleteLocation, getLocations, logOut } from '../../lib/api/weatherApi/weatherApi';
 import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/interfaces/Location';
-import config from '../../lib/api/weatherApi/weatherApiCfg';
-import swal from "sweetalert";
+import config from '../../appConfig';
 import { useRouter } from 'next/router';
+import logger from '../../lib/logger/logger';
+import { errorMessage, showErrorAlert, showWarningAlert } from '../../lib/alerts/alerts';
 
 const { maxLocations } = config;
 
@@ -21,21 +22,12 @@ const Locations = () => {
         setLoggedIn(true);
         setLocationsLoading(false);
         setLocations(locations);
-        // TODO: Add logger
-        // if (typeof(data) !== 'object') {
-        //   logger.warn(`Server: ${data}`);
-        // } else {
-        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-        // }
+        logger.debug(`Locations loaded: ${JSON.stringify(locations)}`);
       })
       .catch((e) => {
         setLocationsLoading(false);
+        logger.error(`Locations loading: ${e.message}`);
         router.push('/auth/login');
-        // TODO: Add logger
-        // redirect to login
-        // add redirect to login
-        // setOutput(error.network);
-        // logger.error(`getOperators: ${e.message}`);
       });
   }, []);
   
@@ -47,94 +39,47 @@ const Locations = () => {
     };
 
     if (locations.length >= maxLocations) {
-      swal({
-        title: "Could not add :(",
-        text: "Maximum locations exceeded",
-        icon: 'error',
-        buttons: {
-          confirm: {
-            text: 'OK',
-            value: true,
-            visible: true,
-            className: 'btn btn-danger',
-            closeModal: true,
-          }
-        },
-      });
+      showErrorAlert(errorMessage.maxLocations);
       return;
     }
 
     const locationExist = locations.find((location) => location.title === locationsCoords.name);
 
     if (locationExist) {
-      swal({
-        title: "Location has already been added",
-        text: "Please choose another one",
-        icon: 'warning',
-        buttons: {
-          confirm: {
-            text: 'OK',
-            value: true,
-            visible: true,
-            className: 'btn btn-warning',
-            closeModal: true,
-          }
-        },
-      });
+      showWarningAlert(errorMessage.locationExist);
       return;
     }
     
     addLocation({ data: locationsCoords })
       .then((location: Location[]) => {
         setLocations((prevLocations: Location[]) => [...prevLocations, ...location]);
-        // TODO: Add logger
-        // if (typeof(data) !== 'object') {
-        //   logger.warn(`Server: ${data}`);
-        // } else {
-        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-        // }
+        logger.debug(`Location added: ${JSON.stringify(location)}`);
       })
       .catch((e) => {
-        // TODO: Add logger
-        // setOutput(error.network);
-        // logger.error(`getOperators: ${e.message}`);
+        logger.error(`Location add: ${e.message}`);
       });
   };
 
   const onLocationDelete = (id: number): void => {
     setLocations((locations) => locations.filter((item) => item.id !== id));
     deleteLocation({ data: { id } })
-      .then((data) => {
-        // TODO: Add logger
-        // if (typeof(data) !== 'object') {
-        //   logger.warn(`Server: ${data}`);
-        // } else {
-        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-        // }
+      .then(() => {
+        logger.debug(`Location deleted: ${id}`);
       })
       .catch((e) => {
-        // TODO: Add logger
-        // setOutput(error.network);
-        // logger.error(`getOperators: ${e.message}`);
+        logger.error(`Location delete: ${e.message}`);
       });
   };
 
   const onLogout = (): void => {
     logOut()
       .then(() => {
-        // TODO: Add logger
         setLoggedIn(false);
         router.push('/auth/login');
-        // if (typeof(data) !== 'object') {
-        //   logger.warn(`Server: ${data}`);
-        // } else {
-        //   logger.debug(`Operators loaded: ${JSON.stringify(data)}`);
-        // }
+        logger.debug('Successfully logged out');
       })
       .catch((e) => {
-        // TODO: Add logger
-        // setOutput(error.network);
-        // logger.error(`getOperators: ${e.message}`);
+        logger.error(`Logout: ${e.message}`);
       });
   };
 
@@ -142,7 +87,6 @@ const Locations = () => {
     return <Card key={locationProps.id} onDelete={onLocationDelete} {...locationProps}/>
   });
 
-  // TODO: create new request to load User data from DB
   const headerProps = {
     brandName: 'Forecastic',
     userName: 'username1',

@@ -7,7 +7,7 @@ interface Options extends Params {
   method: string;
 }
 
-const postData = async ({ url, data}: Params): Promise<any>  => {
+const postData = async ({ url, data }: Params): Promise<any> => {
   let res = await fetch(url, {
     credentials: 'include',
     method: "POST",
@@ -16,6 +16,10 @@ const postData = async ({ url, data}: Params): Promise<any>  => {
     },
     body: JSON.stringify(data),
   });
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+  }
 
   return res;
 };
