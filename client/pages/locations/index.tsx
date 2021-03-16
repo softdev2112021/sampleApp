@@ -4,12 +4,16 @@ import Card from '../../components/card/Card';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/interfaces/Location';
 import config from '../../lib/api/weatherApi/weatherApiCfg';
+import swal from "sweetalert";
+import { useRouter } from 'next/router';
 
 const { maxLocations } = config;
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [locationsLoading, setLocationsLoading] = useState(true);
+  const router = useRouter();
   
   const onLocationDelete = (id: number): void => {
     setLocations((locations) => locations.filter((item) => item.id !== id));
@@ -31,15 +35,50 @@ const Locations = () => {
 
   const onLocationAdd = (props: [CityProps]): void => {
     const [{ name, coord: { lat, lon } }] = props;
-
-    if (locations.length >= maxLocations) return;
-
-    const data: LocationCoords = {
+    const locationsCoords: LocationCoords = {
       name,
       coords: [lat, lon],
     };
 
-    addLocation({ data })
+    if (locations.length >= maxLocations) {
+      swal({
+        title: "Could not add :(",
+        text: "Maximum locations exceeded",
+        icon: 'error',
+        buttons: {
+          confirm: {
+            text: 'OK',
+            value: true,
+            visible: true,
+            className: 'btn btn-danger',
+            closeModal: true,
+          }
+        },
+      });
+      return;
+    }
+
+    const locationExist = locations.find((location) => location.title === locationsCoords.name);
+
+    if (locationExist) {
+      swal({
+        title: "Location has already been added",
+        text: "Please choose another one",
+        icon: 'warning',
+        buttons: {
+          confirm: {
+            text: 'OK',
+            value: true,
+            visible: true,
+            className: 'btn btn-warning',
+            closeModal: true,
+          }
+        },
+      });
+      return;
+    }
+    
+    addLocation({ data: locationsCoords })
       .then((location: Location[]) => {
         setLocations((prevLocations: Location[]) => [...prevLocations, ...location]);
         // TODO: Add logger
@@ -60,6 +99,7 @@ const Locations = () => {
   useEffect(() => {
     getLocations()
       .then((locations: Location[]) => {
+        setLoggedIn(true);
         setLocationsLoading(false);
         setLocations(locations);
         // TODO: Add logger
@@ -71,6 +111,7 @@ const Locations = () => {
       })
       .catch((e) => {
         setLocationsLoading(false);
+        router.push('/auth/login');
         // TODO: Add logger
         // redirect to login
         // add redirect to login
@@ -91,7 +132,7 @@ const Locations = () => {
     onSearchSubmit: onLocationAdd
   }
 
-  return !locationsLoading && (
+  return loggedIn && (
     <>
       <Header {...headerProps} />
       <div className="content-full-width p-20">

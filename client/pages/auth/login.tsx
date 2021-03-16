@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { postData } from "../../lib/services/services";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 // import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter()
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
@@ -28,13 +30,21 @@ const Login = () => {
     // )
 
     if (res.ok) {
-      location.href = '/locations';
+      router.push('/locations');
     } else {
       swal({
         title: "Access denied",
         text: "Wrong auth data",
-        icon: "error",
-        dangerMode: true,
+        icon: 'error',
+        buttons: {
+          confirm: {
+            text: 'OK',
+            value: true,
+            visible: true,
+            className: 'btn btn-danger',
+            closeModal: true,
+          }
+        },
       });
     }
   }
