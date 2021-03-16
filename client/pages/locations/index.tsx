@@ -3,6 +3,9 @@ import Header from '../../components/header/Header';
 import Card from '../../components/card/Card';
 import { addLocation, deleteLocation, getLocations } from '../../lib/api/weatherApi/weatherApi';
 import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/interfaces/Location';
+import config from '../../lib/api/weatherApi/weatherApiCfg';
+
+const { maxLocations } = config;
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
@@ -29,7 +32,7 @@ const Locations = () => {
   const onLocationAdd = (props: [CityProps]): void => {
     const [{ name, coord: { lat, lon } }] = props;
 
-    if (locations.length >= 10) return;
+    if (locations.length >= maxLocations) return;
 
     const data: LocationCoords = {
       name,

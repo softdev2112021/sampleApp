@@ -5,6 +5,7 @@ const config = {
     locationsURL: `${baseURL}/locations`,
   },
   iconsURL: 'http://openweathermap.org/img/wn',
+  maxLocations: 10,
 }
 
 export default config;
