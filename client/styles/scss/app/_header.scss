@@ -18,65 +18,9 @@
 	align-items: center;
 	
 	@include transition(box-shadow .2s linear);
-	// @include clearfix();
 	@include display-flex();
 	@include flex(1);
-	// @include media-breakpoint-down(sm) {
-	// 	display: block;
-	// }
-	
-	& .navbar-toggle {
-		position: relative;
-		padding: rem(10px);
-		margin-right: rem(10px);
-		margin-left: auto;
-		background-color: transparent;
-		background-image: none;
-		border: none;
-		outline: none;
-		
-		@include border-radius($border-radius);
-		@include media-breakpoint-up(md) {
-			display: none;
-		}
-		@if $enable-rtl {
-			margin-right: 0;
-			margin-left: rem(10px);
-		}
-		
-		& .icon-bar {
-			display: block;
-			width: rem(22px);
-			height: rem(2px);
-			
-			@include border-radius($border-radius);
-			
-			& + .icon-bar {
-				margin-top: rem(4px);
-			}
-		}
-		&:hover {
-			background: none;
-			opacity: 0.75;
-		}
-		&.pull-left {
-			margin-left: rem(10px);
-			margin-right: 0;
-			
-			@if $enable-rtl {
-				margin-right: rem(10px);
-				margin-left: 0;
-			}
-		}
-	}
-	& .navbar-header {
-		@include clearfix();
-		@include display-flex();
-		@include flex-align(center);
-		@include media-breakpoint-up(md) {
-			width: $sidebar-width;
-		}
-	}
+
 	& .navbar-brand {
 		padding: rem(10px) rem(20px);
 		height: $header-height;
@@ -350,41 +294,6 @@
 			}
 		}
 	}
-	& .navbar-language {
-		& .flag-icon {
-			font-size: rem(15px);
-			
-			@if $enable-rtl {
-				margin-left: rem(7px);
-			} @else {
-				margin-right: rem(7px);
-			}
-		}
-	}
-	& .navbar-collapse {
-		@include media-breakpoint-up(md) {
-			display: block;
-			
-			@include flex-basis(initial);
-		}
-		@include media-breakpoint-only(md) {
-			display: none;
-		}
-		@include media-breakpoint-down(md) {
-			& .navbar-nav {
-				& > li {
-					@include flex(1);
-					
-					& > a {
-						@include display-flex();
-						@include flex-align(center);
-						@include flex-justify-content(center);
-					}
-				}
-			}
-		}
-	}
-	
 	&.navbar-default {
 		background: $white;
 		
@@ -403,59 +312,5 @@
 				}
 			}
 		}
-	}
-	&.navbar-inverse {
-		background: $dark-darker;
-		
-		& .navbar-toggle {
-			color: lighten($dark, 30%);
-			
-			& .icon-bar {
-				background: lighten($dark, 30%);
-			}
-		}
-		& .navbar-brand {
-			color: $white;
-		}
-		& .navbar-nav {
-			@include media-breakpoint-down(sm) {
-				border-color: $dark;
-			}
-			& > li {
-				& > a {
-					color: rgba($white, .65);
-				}
-				
-				&.active {
-					& > a {
-						background: $dark;
-						opacity: 1;
-					}
-				}
-				&.divider {
-					background: rgba($white, .2);
-				}
-			}
-		}
-		& .navbar-form {
-			margin: rem(10px) 0;
-			
-			& .form-control {
-				background: rgba($white, .25);
-				border-color: transparent;
-				height: rem(30px);
-				color: $white;
-				
-				@include placeholder(rgba($white, .5));
-			}
-			& .btn-search {
-				color: rgba($white, .5);
-			}
-		}
-	}
-}
-.has-scroll {
-	& .header {
-		@include box-shadow(0 0 16px rgba($black, .15));
 	}
 }
