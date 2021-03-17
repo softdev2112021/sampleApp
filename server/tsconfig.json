@@ -14,5 +14,14 @@
     "resolveJsonModule": true,
     "alwaysStrict": true,
     "noImplicitAny": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "*.log"
+  ],
+  "include": [
+    "src"
+  ]
 }
