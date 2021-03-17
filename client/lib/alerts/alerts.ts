@@ -9,6 +9,10 @@ export const errorMessage = {
     title: "Access denied",
     text: "Wrong auth data",
   },
+  server: {
+    title: "Something went wrong",
+    text: "Internal server error",
+  },
   maxLocations: {
     title: "Could not add :(",
     text: "Maximum locations exceeded",

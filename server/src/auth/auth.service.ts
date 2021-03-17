@@ -32,7 +32,7 @@ export class AuthService {
 
   public login(user: UserEntity): CookieSettings {
     const payload: { login: string } = { login: user.login };
-    const token = this.jwtService.sign(payload); 
+    const token = this.jwtService.sign(payload);
     const maxAge = parseInt(this.configService.get('JWT_EXPIRES_IN')) * 1000 * 3600;
 
     return {

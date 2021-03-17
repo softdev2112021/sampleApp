@@ -29,6 +29,8 @@ const Login = () => {
       .catch((e) => {
         if (e.message === "Failed to fetch") {
           showErrorAlert(errorMessage.fetch);
+        } else if (e.message.includes('Internal Server Error')) {
+          showErrorAlert(errorMessage.server);
         } else {
           showErrorAlert(errorMessage.auth);
         }

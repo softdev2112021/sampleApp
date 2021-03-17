@@ -18,7 +18,7 @@ const postData = async ({ url, data }: Params): Promise<any> => {
   });
 
   if (!res.ok) {
-    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    throw new Error(`Could not fetch ${url}, status: ${res.status} (${res.statusText})`);
   }
 
   return res;
