@@ -28,7 +28,7 @@ const convertLocations = (locations: LocationApi[]): Location[] => {
         title: name,
         date: convertTime(dt),
         content: { data: Math.floor(temp), descr: description, icon: `${iconsURL}/${icon}@4x.png` },
-        contentDetails,
+        contentDetails: contentDetails as any,
       }
     });
 }

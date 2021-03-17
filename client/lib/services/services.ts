@@ -32,14 +32,14 @@ const changeResources = async ({ method, url, data = null }: Options): Promise<a
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: null,
+    body: null as any,
   }
 
   if (data) {
     options.body = JSON.stringify(data);
   }
 
-  let res = await fetch(url, options);
+  let res = await fetch(url, options as any);
 
   if (!res.ok) {
     throw new Error(`Could not fetch ${url}, status: ${res.status}`);

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Typeahead, Highlighter } from "react-bootstrap-typeahead";
 import { Location } from '../../../lib/api/weatherApi/interfaces/Location';
-// TODO: Make loading cityList from DB as it is too heavy to start on client
 import cities from '../../../lib/api/weatherApi/cityList.json';
 
 interface SearchFormProps {
@@ -30,14 +29,14 @@ const SearchForm = (props: SearchFormProps) => {
             renderMenuItemChildren={(option, props) => (
               <>
                 <Highlighter search={props.text}>
-                  {option[props.labelKey]}
+                  {option[props.labelKey as any]}
                 </Highlighter>
                 <div className="pull-right">[{option.country}]</div>
               </>
             )}
             minLength={3}
             onChange={setSingleSelections}
-            options={cities}
+            options={cities as any}
             placeholder="Enter city name"
             selected={singleSelections}
           />
