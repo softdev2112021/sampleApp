@@ -1,21 +1,21 @@
-import CardDetails from './cardDetails/CardDetails';
+import CardDetails, { CardDetailsProps } from './cardDetails/CardDetails';
 
-interface CardProps {
+export interface CardProps {
   id: number;
   title: string;
   date: { weekDay: string; date: string };
   content: {
-    data: { min: number; max: number; pop: string };
+    data: number;
     descr: string;
     icon: string;
   };
-  contentDetails: any[];
+  contentDetails: CardDetailsProps[];
   onDelete: (id: number) => void;
 }
 
 const Card = (props: CardProps) => {
   const { id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete } = props;
-  const cardDetails = contentDetails.map((content) => {
+  const cardDetails = contentDetails.map((content: CardDetailsProps) => {
     return <CardDetails key={content.date.weekDay} {...content}/>
   });
 

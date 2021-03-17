@@ -13,7 +13,7 @@ it('renders correctly', () => {
   };
 
   const tree = renderer
-    .create(<CardDetails {...cardDetailsProps}/>)
+    .create(<CardDetails key={'key'} {...cardDetailsProps}/>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

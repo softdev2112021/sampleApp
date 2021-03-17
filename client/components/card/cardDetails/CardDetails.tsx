@@ -1,4 +1,5 @@
-interface CardDetailsProps {
+export interface CardDetailsProps {
+  key: string;
   date: { weekDay: string; date: string };
   content: {
     data: { min: number; max: number; pop: string };

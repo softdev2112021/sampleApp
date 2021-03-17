@@ -115,11 +115,12 @@ exports[`renders correctly 1`] = `
       >
         <img
           alt="profile"
+          src="avatar"
         />
         <span
           className="d-none d-md-inline"
         >
-          undefined 
+          username1 
         </span>
         <b
           className="caret"
