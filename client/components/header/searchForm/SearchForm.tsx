@@ -29,7 +29,7 @@ const SearchForm = (props: SearchFormProps) => {
             renderMenuItemChildren={(option, props) => (
               <>
                 <Highlighter search={props.text}>
-                  {option[props.labelKey as any]}
+                  {option[`${props.labelKey}`]}
                 </Highlighter>
                 <div className="pull-right">[{option.country}]</div>
               </>

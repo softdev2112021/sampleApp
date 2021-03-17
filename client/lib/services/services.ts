@@ -25,21 +25,21 @@ const postData = async ({ url, data }: Params): Promise<any> => {
 };
 
 const changeResources = async ({ method, url, data = null }: Options): Promise<any> => {
-  const options = {
+  const options: RequestInit = {
     credentials: 'include',
     method,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: null as any,
+    body: null,
   }
 
   if (data) {
     options.body = JSON.stringify(data);
   }
 
-  let res = await fetch(url, options as any);
+  let res = await fetch(url, options);
 
   if (!res.ok) {
     throw new Error(`Could not fetch ${url}, status: ${res.status}`);
