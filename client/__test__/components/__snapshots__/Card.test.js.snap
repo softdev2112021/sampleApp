@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="col-sm-6 col-md-4 col-xl-3"
+>
+  <div
+    className="panel panel-inverse"
+  >
+    <div
+      className="panel-heading bg-dark text-grey"
+    >
+      <h4
+        className="panel-title"
+      >
+        <b
+          className="f-s-16"
+        >
+          Dnipro
+        </b>
+      </h4>
+      <div
+        className="panel-date m-r-20"
+      >
+        <b>
+          Mon
+          /
+        </b>
+        <b>
+          17/Mar
+        </b>
+      </div>
+      <div
+        className="panel-heading-btn"
+      >
+        <button
+          className="btn btn-xs btn-icon btn-circle btn-danger"
+          onClick={[Function]}
+        >
+          <i
+            className="fa fa-times"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="panel-body pt-0 pb-0"
+    >
+      <div
+        className="d-flex align-items-center"
+      >
+        <h2
+          className="mb-0"
+        >
+          20
+          <sup>
+            o
+          </sup>
+          C
+        </h2>
+        <img
+          alt="image"
+          src="icon"
+          width="64"
+        />
+        <b>
+          Cloudly
+        </b>
+      </div>
+    </div>
+    <div
+      className="row row-space-0 p-t-10 p-b-10 bg-gradient-grey"
+    />
+  </div>
+</div>
+`;

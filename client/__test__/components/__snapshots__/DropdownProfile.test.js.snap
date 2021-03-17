@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="dropdown navbar-user dropdown"
+  onKeyDown={[Function]}
+>
+  <a
+    aria-expanded={false}
+    aria-haspopup={true}
+    className=""
+    onClick={[Function]}
+  >
+    <img
+      alt="profile"
+      src="avatar"
+    />
+    <span
+      className="d-none d-md-inline"
+    >
+      username1 
+    </span>
+    <b
+      className="caret"
+    />
+  </a>
+  <ul
+    aria-hidden={true}
+    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    role="menu"
+    tabIndex="-1"
+  >
+    <button
+      className="dropdown-item"
+      onClick={[Function]}
+      role="menuitem"
+      tabIndex="0"
+      type="button"
+    >
+      Log Out
+    </button>
+  </ul>
+</li>
+`;

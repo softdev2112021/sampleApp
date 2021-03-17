@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <div
+    className="login-cover"
+  >
+    <div
+      className="login-cover-image"
+      style={
+        Object {
+          "backgroundImage": "url(/img/background/login-bg.jpg)",
+        }
+      }
+    />
+    <div
+      className="login-cover-bg"
+    />
+  </div>,
+  <div
+    className="login login-v2"
+  >
+    <div
+      className="login-header"
+    >
+      <div
+        className="brand"
+      >
+        <span
+          className="logo"
+        >
+          <i
+            className="fas fa-cloud"
+          />
+        </span>
+         
+        <b>
+          Forecastic
+        </b>
+         App
+        <small>
+          Weather forecast by Ivan
+        </small>
+      </div>
+      <div
+        className="icon"
+      >
+        <i
+          className="fa fa-lock"
+        />
+      </div>
+    </div>
+    <div
+      className="login-content"
+    >
+      <form
+        className="margin-bottom-0"
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group m-b-20"
+        >
+          <input
+            className="form-control form-control-lg"
+            name="email"
+            onChange={[Function]}
+            placeholder="Email Address"
+            required={true}
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          className="form-group m-b-20"
+        >
+          <input
+            className="form-control form-control-lg"
+            name="password"
+            onChange={[Function]}
+            placeholder="Password"
+            required={true}
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          className="login-buttons"
+        >
+          <button
+            className="btn btn-success btn-block btn-lg"
+            type="submit"
+          >
+            Sign me in
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+]
+`;

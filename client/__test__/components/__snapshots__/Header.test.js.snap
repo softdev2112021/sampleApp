@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="header navbar-default"
+>
+  <div
+    className="navbar-brand"
+  >
+    <span
+      className="navbar-logo"
+    >
+      <i
+        className="fas fa-cloud"
+      />
+    </span>
+    <b>
+      Forecastic
+    </b>
+     App
+  </div>
+  <div
+    className="navbar-form"
+  >
+    <form
+      action=""
+      method="POST"
+      name="search_form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <div
+          className="rbt"
+          style={
+            Object {
+              "outline": "none",
+              "position": "relative",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "flex": 1,
+                "height": "100%",
+                "position": "relative",
+              }
+            }
+          >
+            <input
+              aria-autocomplete="both"
+              aria-expanded={false}
+              aria-haspopup="listbox"
+              autoComplete="off"
+              className="rbt-input-main form-control rbt-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Enter city name"
+              role="combobox"
+              type="text"
+              value=""
+            />
+            <input
+              aria-hidden={true}
+              className="rbt-input-hint"
+              readOnly={true}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "borderColor": "transparent",
+                  "boxShadow": "none",
+                  "color": "rgba(0, 0, 0, 0.35)",
+                  "left": 0,
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "top": 0,
+                  "width": "100%",
+                }
+              }
+              tabIndex={-1}
+              value=""
+            />
+          </div>
+        </div>
+        <button
+          className="btn btn-search"
+          type="submit"
+        >
+          <i
+            className="fa fa-search"
+          />
+        </button>
+      </div>
+    </form>
+  </div>
+  <ul
+    className="navbar-nav"
+  >
+    <li
+      className="dropdown navbar-user dropdown"
+      onKeyDown={[Function]}
+    >
+      <a
+        aria-expanded={false}
+        aria-haspopup={true}
+        className=""
+        onClick={[Function]}
+      >
+        <img
+          alt="profile"
+        />
+        <span
+          className="d-none d-md-inline"
+        >
+          undefined 
+        </span>
+        <b
+          className="caret"
+        />
+      </a>
+      <ul
+        aria-hidden={true}
+        className="dropdown-menu dropdown-menu-right dropdown-menu"
+        role="menu"
+        tabIndex="-1"
+      >
+        <button
+          className="dropdown-item"
+          onClick={[Function]}
+          role="menuitem"
+          tabIndex="0"
+          type="button"
+        >
+          Log Out
+        </button>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;

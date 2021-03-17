@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="col-4 mb-2 d-flex flex-column align-items-center"
+>
+  <div
+    className="f-s-12 f-w-800 height-10"
+  >
+    Mon
+    /
+    17/Mar
+  </div>
+  <div
+    className="height-50"
+  >
+    <img
+      alt="image"
+      src="icon"
+      width="64"
+    />
+  </div>
+  <div
+    className="f-s-18 f-w-800 height-20"
+  >
+    20
+    <sup>
+      o
+    </sup>
+    C
+  </div>
+  <div
+    className="f-s-14 f-w-800 mb-2"
+  >
+    19
+  </div>
+  <i
+    className="fa fa-umbrella"
+  >
+     0%
+  </i>
+</div>
+`;
