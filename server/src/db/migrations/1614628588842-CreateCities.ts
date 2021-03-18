@@ -1,6 +1,9 @@
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import { CityEntity } from '../../city/city.entity';
 import * as cityList from './cityList.json';
+import * as config from './cityConfig.json';
+
+const { countryList } = config;
 
 export class CreateCities1614628588842 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -21,7 +24,7 @@ export class CreateCities1614628588842 implements MigrationInterface {
 
     const cities: CityEntity[] = await Promise.all(
       JSON.parse(JSON.stringify(cityList))
-        .filter((city: City) => city.country === 'UA')
+        .filter((city: City) => countryList.includes(city.country))
         .map(async (city: City) => {
           const {
             name,
