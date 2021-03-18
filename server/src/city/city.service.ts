@@ -6,7 +6,7 @@ import {
   LoggerService,
 } from '@nestjs/common';
 import { Like, Repository } from 'typeorm';
-import { CityEntity } from './city.entity';
+import { City } from './city.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -14,11 +14,11 @@ export class CityService {
   constructor(
     @Inject(Logger)
     private readonly logger: LoggerService,
-    @InjectRepository(CityEntity)
-    private cityRepository: Repository<CityEntity>,
+    @InjectRepository(City)
+    private cityRepository: Repository<City>,
   ) {}
 
-  async findCities(name: string): Promise<CityEntity[]> {
+  async findCities(name: string): Promise<City[]> {
     const cities = await this.cityRepository.find({
       name: Like(`%${name}%`),
     });

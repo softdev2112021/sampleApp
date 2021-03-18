@@ -1,9 +1,9 @@
 import { Forecast } from '../weather/services/interfaces/forecast.interface';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
-export class LocationEntity {
+export class Location {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,8 +13,8 @@ export class LocationEntity {
   @Column('float', { array: true })
   coords: [number, number];
 
-  @ManyToOne(() => UserEntity, (user) => user.locations)
-  user?: UserEntity;
+  @ManyToOne(() => User, (user) => user.locations)
+  user?: User;
 
   forecast?: Forecast;
 }

@@ -10,8 +10,8 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { User } from '../user/user.decorator';
-import { UserEntity } from '../user/user.entity';
+import { ReqUser } from '../user/user.decorator';
+import { User } from '../user/user.entity';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/localAuth.guard';
 import { Response } from 'express';
@@ -30,9 +30,9 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
-    @User() user: UserEntity,
+    @ReqUser() user: User,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<UserEntity> {
+  ): Promise<User> {
     const { name, value, options }: CookieSettings = this.authService.login(
       user,
     );
@@ -51,7 +51,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getProfile(@User() user: UserEntity): Promise<UserEntity> {
+  async getProfile(@ReqUser() user: User): Promise<User> {
     this.logger.log(`User ${user.id} has logged profile in`);
     return user;
   }

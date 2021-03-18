@@ -2,9 +2,9 @@ import { Controller, Get, Post, Delete, Body, UseGuards, Inject, Logger, LoggerS
 import { LocationService } from './location.service';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
-import { LocationEntity } from './location.entity';
-import { User } from '../user/user.decorator';
-import { UserEntity } from '../user/user.entity';
+import { Location } from './location.entity';
+import { ReqUser } from '../user/user.decorator';
+import { User } from '../user/user.entity';
 import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
 
 @Controller('locations')
@@ -17,10 +17,10 @@ export class LocationController {
   ) {}
 
   @Get()
-  async getLocations(@User() user: UserEntity): Promise<LocationEntity[]> {
+  async getLocations(@ReqUser() user: User): Promise<Location[]> {
     return this.locationService
       .getLocations(user)
-      .then((locations: LocationEntity[]): LocationEntity[] => {
+      .then((locations: Location[]): Location[] => {
         this.logger.log('Successfully loaded locations');
         return locations;
       })
@@ -33,12 +33,12 @@ export class LocationController {
   @Post()
   async addLocation(
     @Body() addLocationDto: AddLocationDto,
-    @User() user: UserEntity,
-  ): Promise<LocationEntity> {
+    @ReqUser() user: User,
+  ): Promise<Location> {
     return this.locationService
       .addLocation(user, addLocationDto)
       .then(
-        (location: LocationEntity): LocationEntity => {
+        (location: Location): Location => {
           this.logger.log('Successfully added location');
           return location;
         },
@@ -52,7 +52,7 @@ export class LocationController {
   @Delete()
   async deleteLocation(
     @Body() deleteLocationDto: DeleteLocationDto,
-    @User() user: UserEntity,
+    @ReqUser() user: User,
   ): Promise<void> {
     return this.locationService
       .deleteLocation(user, deleteLocationDto)

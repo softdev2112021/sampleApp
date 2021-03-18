@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
-import { UserEntity } from '../../user/user.entity';
+import { User } from '../../user/user.entity';
 import * as bcrypt from 'bcrypt';
 
 export class CreateUsers1614628544483 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const userRepository: Repository<UserEntity> = queryRunner.connection.getRepository(
-      UserEntity,
+    const userRepository: Repository<User> = queryRunner.connection.getRepository(
+      User,
     );
 
     interface UserData {
@@ -20,7 +20,7 @@ export class CreateUsers1614628544483 implements MigrationInterface {
       { name: 'user3', login: 'user3@gmail.com', password: 'pass3' },
     ];
 
-    const users: UserEntity[] = await Promise.all(
+    const users: User[] = await Promise.all(
       usersData.map(async (user: UserData) => {
         return userRepository.create({
           name: user.name,
@@ -34,11 +34,11 @@ export class CreateUsers1614628544483 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const userRepository: Repository<UserEntity> = queryRunner.connection.getRepository(
-      UserEntity,
+    const userRepository: Repository<User> = queryRunner.connection.getRepository(
+      User,
     );
 
-    const users: UserEntity[] = await userRepository.find({
+    const users: User[] = await userRepository.find({
       select: ['login'],
     });
 

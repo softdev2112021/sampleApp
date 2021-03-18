@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserEntity } from '../user/user.entity';
+import { User } from '../user/user.entity';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
 import { LocationController } from './location.controller';
@@ -11,7 +11,7 @@ import {
   getLocationsServiceResult,
 } from './mocks/location.controller.mock';
 
-const user: UserEntity = {
+const user: User = {
   id: 1,
   name: 'name',
   login: 'login',

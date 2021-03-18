@@ -1,8 +1,8 @@
 import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { WeatherService } from '../weather/services/weather.service';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
-import { LocationEntity } from './location.entity';
+import { User } from '../user/user.entity';
+import { Location } from './location.entity';
 import { AddLocation } from './interfaces/addLocation.interface';
 import { DeleteLocation } from './interfaces/deleteLocation.interface';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,12 +12,12 @@ export class LocationService {
   constructor(
     @Inject(Logger)
     private readonly logger: LoggerService,
-    @InjectRepository(LocationEntity)
-    private locationRepository: Repository<LocationEntity>,
+    @InjectRepository(Location)
+    private locationRepository: Repository<Location>,
     private readonly weatherService: WeatherService,
   ) {}
 
-  async getLocations(user: UserEntity): Promise<LocationEntity[]> {
+  async getLocations(user: User): Promise<Location[]> {
     const locations = await this.locationRepository.find({
       where: { user },
     });
@@ -34,7 +34,7 @@ export class LocationService {
     );
   }
 
-  async addLocation(user: UserEntity, addLocation: AddLocation): Promise<LocationEntity> {
+  async addLocation(user: User, addLocation: AddLocation): Promise<Location> {
     const location = this.locationRepository.create(addLocation);
     location.user = user;
     await this.locationRepository.save(location);
@@ -47,7 +47,7 @@ export class LocationService {
   }
 
   async deleteLocation(
-    user: UserEntity,
+    user: User,
     deleteLocation: DeleteLocation,
   ): Promise<void> {
     const location = await this.locationRepository.findOne(deleteLocation.id, {

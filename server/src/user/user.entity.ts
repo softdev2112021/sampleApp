@@ -1,10 +1,10 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { LocationEntity } from '../location/location.entity';
+import { Location } from '../location/location.entity';
 
 @Entity()
-export class UserEntity {
-  constructor(partial: Partial<UserEntity>) {
+export class User {
+  constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }
 
@@ -21,6 +21,6 @@ export class UserEntity {
   @Column({ nullable: false })
   passwordHash: string;
 
-  @OneToMany(() => LocationEntity, (location) => location.user)
-  locations?: LocationEntity[];
+  @OneToMany(() => Location, (location) => location.user)
+  locations?: Location[];
 }

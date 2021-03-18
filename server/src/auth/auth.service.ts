@@ -1,4 +1,4 @@
-import { UserEntity } from '../user/user.entity';
+import { User } from '../user/user.entity';
 import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -16,8 +16,8 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async validateUser(login: string, pass: string): Promise<UserEntity | null> {
-    const user: UserEntity = await this.userService.getByLogin(login);
+  async validateUser(login: string, pass: string): Promise<User | null> {
+    const user: User = await this.userService.getByLogin(login);
 
     const comparison = await bcrypt.compare(pass, user.passwordHash);
 
@@ -30,7 +30,7 @@ export class AuthService {
     return null;
   }
 
-  public login(user: UserEntity): CookieSettings {
+  public login(user: User): CookieSettings {
     const payload: { login: string } = { login: user.login };
     const token = this.jwtService.sign(payload);
     const maxAge = parseInt(this.configService.get('JWT_EXPIRES_IN')) * 1000 * 3600;

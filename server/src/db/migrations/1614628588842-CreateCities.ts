@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, Repository } from 'typeorm';
-import { CityEntity } from '../../city/city.entity';
+import { City } from '../../city/city.entity';
 import * as cityList from './cityList.json';
 import * as config from './cityConfig.json';
 
@@ -7,11 +7,11 @@ const { countryList } = config;
 
 export class CreateCities1614628588842 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const cityRepository: Repository<CityEntity> = queryRunner.connection.getRepository(
-      CityEntity,
+    const cityRepository: Repository<City> = queryRunner.connection.getRepository(
+      City,
     );
 
-    interface City {
+    interface CityData {
       id: number;
       name: string;
       state: string;
@@ -22,10 +22,10 @@ export class CreateCities1614628588842 implements MigrationInterface {
       };
     }
 
-    const cities: CityEntity[] = await Promise.all(
+    const cities: City[] = await Promise.all(
       JSON.parse(JSON.stringify(cityList))
-        .filter((city: City) => countryList.includes(city.country))
-        .map(async (city: City) => {
+        .filter((city: CityData) => countryList.includes(city.country))
+        .map(async (city: CityData) => {
           const {
             name,
             country,
@@ -44,11 +44,11 @@ export class CreateCities1614628588842 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const cityRepository: Repository<CityEntity> = queryRunner.connection.getRepository(
-      CityEntity,
+    const cityRepository: Repository<City> = queryRunner.connection.getRepository(
+      City,
     );
 
-    const cities: CityEntity[] = await cityRepository.find({
+    const cities: City[] = await cityRepository.find({
       select: ['name'],
     });
 

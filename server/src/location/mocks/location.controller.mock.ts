@@ -1,9 +1,9 @@
-import { UserEntity } from '../../user/user.entity';
+import { User } from '../../user/user.entity';
 import { AddLocationDto } from '../dto/addLocation.dto';
 import { DeleteLocationDto } from '../dto/deleteLocation.dto';
-import { LocationEntity } from '../location.entity';
+import { Location } from '../location.entity';
 
-const location: LocationEntity = {
+const location: Location = {
   id: 1,
   name: 'Dnipro',
   coords: [48.450001, 34.98333],
@@ -50,19 +50,19 @@ const location: LocationEntity = {
 };
 
 export const getLocationsServiceResult = async (
-  user: UserEntity,
-): Promise<LocationEntity[]> => {
+  user: User,
+): Promise<Location[]> => {
   return [location];
 };
 
 export const addLocationServiceResult = async (
-  user: UserEntity,
+  user: User,
   addLocationDto: AddLocationDto,
-): Promise<LocationEntity> => {
+): Promise<Location> => {
   return location;
 };
 
 export const deleteLocationServiceResult = async (
-  user: UserEntity,
+  user: User,
   deleteLocationDto: DeleteLocationDto,
 ): Promise<void> => {};
