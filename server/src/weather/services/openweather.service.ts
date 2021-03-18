@@ -25,6 +25,25 @@ const {
   forecastDays,
 } = config;
 
+const convertDaily = (
+  forecastDaily: OpenWeatherDay[],
+  maxDays: number,
+): ForecastDay[] => {
+  return forecastDaily
+    .map(
+      (forecastDay: OpenWeatherDay): ForecastDay => {
+        const {
+          dt,
+          temp: { min, max },
+          pop,
+          weather: [{ description, icon }],
+        } = forecastDay;
+        return { dt, temp: { min, max }, pop, description, icon };
+      },
+    )
+    .splice(1, maxDays);
+};
+
 @Injectable()
 export class OpenWeatherService {
   constructor(
@@ -40,25 +59,6 @@ export class OpenWeatherService {
     const url = `${baseURL}${onecall}?lat=${lat}&lon=${lon}&exclude=${exclude.join(
       ',',
     )}&units=${units}&appid=${apiKey}`;
-
-    const convertDaily = (
-      forecastDaily: OpenWeatherDay[],
-      maxDays: number,
-    ): ForecastDay[] => {
-      return forecastDaily
-        .map(
-          (forecastDay: OpenWeatherDay): ForecastDay => {
-            const {
-              dt,
-              temp: { min, max },
-              pop,
-              weather: [{ description, icon }],
-            } = forecastDay;
-            return { dt, temp: { min, max }, pop, description, icon };
-          },
-        )
-        .splice(1, maxDays);
-    };
 
     return await this.http
       .get(url)
