@@ -4,54 +4,12 @@ import { UserEntity } from '../user/user.entity';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
 import { LocationController } from './location.controller';
-import { LocationEntity } from './location.entity';
 import { LocationService } from './location.service';
-
-const location: LocationEntity = {
-  id: 1,
-  name: 'Dnipro',
-  coords: [48.450001, 34.98333],
-  forecast: {
-    current: {
-      dt: 1615980598,
-      temp: 7.89,
-      description: 'broken clouds',
-      icon: '04d',
-    },
-    daily: [
-      {
-        dt: 1616058000,
-        temp: {
-          min: 4.1,
-          max: 9.97,
-        },
-        pop: 0.6,
-        description: 'light rain',
-        icon: '10d',
-      },
-      {
-        dt: 1616144400,
-        temp: {
-          min: 1.01,
-          max: 4.49,
-        },
-        pop: 0.4,
-        description: 'light rain',
-        icon: '10d',
-      },
-      {
-        dt: 1616230800,
-        temp: {
-          min: 0.71,
-          max: 4.88,
-        },
-        pop: 0.84,
-        description: 'light snow',
-        icon: '13d',
-      },
-    ],
-  },
-};
+import {
+  addLocationServiceResult,
+  deleteLocationServiceResult,
+  getLocationsServiceResult,
+} from './mocks/location.controller.mock';
 
 const user: UserEntity = {
   id: 1,
@@ -98,12 +56,6 @@ describe('LocationController', () => {
 
   describe('getLocations', () => {
     it('should return locations array', async () => {
-      const getLocationsServiceResult = async (
-        user: UserEntity,
-      ): Promise<LocationEntity[]> => {
-        return [location];
-      };
-
       const res = await getLocationsServiceResult(user);
 
       jest
@@ -117,13 +69,6 @@ describe('LocationController', () => {
 
   describe('addLocation', () => {
     it('should return a location', async () => {
-      const addLocationServiceResult = async (
-        user: UserEntity,
-        addLocationDto: AddLocationDto,
-      ): Promise<LocationEntity> => {
-        return location;
-      };
-
       const res = await addLocationServiceResult(user, addLocationDto);
 
       jest
@@ -136,18 +81,15 @@ describe('LocationController', () => {
 
   describe('deleteLocation', () => {
     it('should return an empty promise', async () => {
-      const deleteLocationServiceResult = async (
-        user: UserEntity,
-        deleteLocationDto: DeleteLocationDto,
-      ): Promise<void> => {};
-
       const res = await deleteLocationServiceResult(user, deleteLocationDto);
 
       jest
         .spyOn(service, 'deleteLocation')
         .mockImplementation(deleteLocationServiceResult);
 
-      expect(await controller.deleteLocation(deleteLocationDto, user)).toEqual(res);
+      expect(await controller.deleteLocation(deleteLocationDto, user)).toEqual(
+        res,
+      );
     });
   });
 });
