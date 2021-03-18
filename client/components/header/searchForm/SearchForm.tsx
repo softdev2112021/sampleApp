@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Typeahead, Highlighter } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Highlighter } from "react-bootstrap-typeahead";
 import { Location } from '../../../lib/api/weatherApi/interfaces/Location';
-import cities from '../../../lib/api/weatherApi/cityList.json';
+import config from "../../../lib/api/weatherApi/weatherApiCfg";
+import logger from "../../../lib/logger/logger";
+import { errorMessage, showErrorAlert } from '../../../lib/alerts/alerts';
+
+const { citiesURL } = config;
 
 interface SearchFormProps {
   onSubmit: (location: Location[]) => void;
@@ -10,6 +14,8 @@ interface SearchFormProps {
 const SearchForm = (props: SearchFormProps) => {
   const { onSubmit } = props;
   const [singleSelections, setSingleSelections] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="navbar-form">
@@ -23,9 +29,10 @@ const SearchForm = (props: SearchFormProps) => {
         }}
       >
         <div className="form-group">
-          <Typeahead
+          <AsyncTypeahead
             id="city"
             labelKey="name"
+            isLoading={isLoading}
             renderMenuItemChildren={(option, props) => (
               <>
                 <Highlighter search={props.text}>
@@ -34,11 +41,24 @@ const SearchForm = (props: SearchFormProps) => {
                 <div className="pull-right">[{option.country}]</div>
               </>
             )}
-            minLength={3}
+            minLength={2}
             onChange={setSingleSelections}
-            options={cities as any}
+            options={options}
             placeholder="Enter city name"
             selected={singleSelections}
+            onSearch={(query) => {
+              setIsLoading(true);
+              fetch(`${citiesURL}/${query}`, { credentials: 'include' })
+                .then((res) => res.json())
+                .then((res) => {
+                  setOptions(res);
+                  setIsLoading(false);
+                })
+                .catch((e) => {
+                  logger.error(`Cities loading error: ${e.message}`);
+                  showErrorAlert(errorMessage.cities);
+                });
+            }}
           />
           <button type="submit" className="btn btn-search">
             <i className="fa fa-search"></i>

@@ -1,6 +1,6 @@
 import { getResources, addResource, deleteResource, postData } from '../../services/services';
 import convertTime from '../../utils/convertTime/convertTime';
-import { LocationCoords, Location, LocationApi, LocationDayApi } from './interfaces/Location';
+import { LocationCoords, Location, LocationApi, LocationDayApi, CityProps } from './interfaces/Location';
 import config from './weatherApiCfg';
 import { LogIn, User } from "../../../lib/api/weatherApi/interfaces/Auth";
 

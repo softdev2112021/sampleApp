@@ -21,6 +21,10 @@ export const errorMessage = {
     title: "Location has already been added",
     text: "Please choose another one",
   },
+  cities: {
+    title: "Something went wrong",
+    text: "Could not load city list",
+  },
 };
 
 export const showErrorAlert = (message: { title: string; text: string }) => {

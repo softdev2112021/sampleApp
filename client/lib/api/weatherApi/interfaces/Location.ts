@@ -1,9 +1,6 @@
 export interface CityProps {
   name: string;
-  coord: {
-    lat: number;
-    lon: number;
-  };
+  coords: [number, number];
 }
 
 export interface LocationCoords {

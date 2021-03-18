@@ -6,6 +6,7 @@ const config = {
   iconsURL: 'http://openweathermap.org/img/wn',
   logInURL: `${baseURL}/auth/login`,
   logOutURL: `${baseURL}/auth/logout`,
+  citiesURL: `${baseURL}/cities`,
 }
 
 export default config;

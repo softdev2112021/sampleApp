@@ -32,10 +32,10 @@ const Locations = () => {
   }, []);
   
   const onLocationAdd = (props: [CityProps]): void => {
-    const [{ name, coord: { lat, lon } }] = props;
+    const [{ name, coords }] = props;
     const locationsCoords: LocationCoords = {
       name,
-      coords: [lat, lon],
+      coords,
     };
 
     if (locations.length >= maxLocations) {
