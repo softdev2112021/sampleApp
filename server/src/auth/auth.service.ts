@@ -22,11 +22,11 @@ export class AuthService {
     const comparison = await bcrypt.compare(pass, user.passwordHash);
 
     if (user && comparison) {
-      this.logger.log(`${user.name} password validated`);
+      this.logger.log(`User ${user.id} password validated`);
       return user;
     }
 
-    this.logger.log(`${user.name} password denied`);
+    this.logger.log(`User ${user.id} password denied`);
     return null;
   }
 

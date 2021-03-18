@@ -37,7 +37,7 @@ export class AuthController {
       user,
     );
     res.cookie(name, value, options);
-    this.logger.log(`${user.name} has logged in`);
+    this.logger.log(`User ${user.id} has logged in`);
     return user;
   }
 
@@ -52,7 +52,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@User() user: UserEntity): Promise<UserEntity> {
-    this.logger.log(`${user} has logged profile in`);
+    this.logger.log(`User ${user.id} has logged profile in`);
     return user;
   }
 }
