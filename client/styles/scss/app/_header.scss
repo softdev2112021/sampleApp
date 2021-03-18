@@ -195,6 +195,10 @@
 	& .navbar-form {
 		padding: 0 rem(15px);
 		margin: rem(9px) 0;
+
+		.rbt-aux {
+			display: none !important;
+		}
 		
 		@include media-breakpoint-down(sm) {
 			padding-left: rem(5px);
