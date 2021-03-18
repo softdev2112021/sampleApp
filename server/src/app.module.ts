@@ -1,10 +1,11 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DbModule } from './db/db.module';
 import { LocationModule } from './location/location.module';
 import { WeatherModule } from './weather/weather.module';
+import { CityModule } from './city/city.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { WeatherModule } from './weather/weather.module';
     AuthModule,
     LocationModule,
     WeatherModule,
+    CityModule,
   ],
 })
 export class AppModule {}
