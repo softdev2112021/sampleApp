@@ -6,7 +6,7 @@ import { CityProps, LocationCoords, Location } from '../../lib/api/weatherApi/in
 import config from '../../appConfig';
 import { useRouter } from 'next/router';
 import logger from '../../lib/logger/logger';
-import { errorMessage, showErrorAlert, showWarningAlert } from '../../lib/alerts/alerts';
+import { errorMessage, showErrorAlert, showWarningAlert } from '../../lib/ui/alerts/alerts';
 
 const { maxLocations } = config;
 
@@ -50,7 +50,7 @@ const Locations = () => {
       return;
     }
     
-    addLocation({ data: locationsCoords })
+    addLocation(locationsCoords)
       .then((location: Location[]) => {
         setLocations((prevLocations: Location[]) => [...prevLocations, ...location]);
         logger.debug(`Location added: ${JSON.stringify(location)}`);
@@ -62,7 +62,7 @@ const Locations = () => {
 
   const onLocationDelete = (id: number): void => {
     setLocations((locations) => locations.filter((item) => item.id !== id));
-    deleteLocation({ data: { id } })
+    deleteLocation(id)
       .then(() => {
         logger.debug(`Location deleted: ${id}`);
       })

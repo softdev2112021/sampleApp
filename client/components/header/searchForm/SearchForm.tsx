@@ -3,7 +3,7 @@ import { AsyncTypeahead, Highlighter } from "react-bootstrap-typeahead";
 import { Location } from '../../../lib/api/weatherApi/interfaces/Location';
 import config from "../../../lib/api/weatherApi/weatherApiCfg";
 import logger from "../../../lib/logger/logger";
-import { errorMessage, showErrorAlert } from '../../../lib/alerts/alerts';
+import { errorMessage, showErrorAlert } from '../../../lib/ui/alerts/alerts';
 
 const { citiesURL } = config;
 

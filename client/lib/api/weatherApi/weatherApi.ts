@@ -1,8 +1,10 @@
-import { getResources, addResource, deleteResource, postData } from '../../services/services';
 import convertTime from '../../utils/convertTime/convertTime';
 import { LocationCoords, Location, LocationApi, LocationDayApi, CityProps } from './interfaces/Location';
 import config from './weatherApiCfg';
 import { LogIn, User } from "../../../lib/api/weatherApi/interfaces/Auth";
+import Http from '../../http/Http';
+
+const http = new Http();
 
 const { entrypoints: { locationsURL }, iconsURL, logInURL, logOutURL } = config;
 
@@ -34,25 +36,25 @@ const convertLocations = (locations: LocationApi[]): Location[] => {
 }
 
 const getLocations = async (): Promise<Location[]> => {
-  return getResources({ url: locationsURL }).then((data) => convertLocations(data));
+  return http.get(locationsURL).then(({ data }) => convertLocations(data));
 };
 
-const addLocation = async (params: { data: LocationCoords }): Promise<Location[]> => {
-  return addResource({ url: locationsURL, ...params }).then((data) => {
+const addLocation = async (data: LocationCoords): Promise<Location[]> => {
+  return http.post(locationsURL, data).then(({ data }) => {
     return convertLocations([data]);
   });
 };
 
-const deleteLocation = async (params: { data: { id: number } }): Promise<void> => {
-  return deleteResource({ url: locationsURL, ...params });
+const deleteLocation = async (id: number): Promise<void> => {
+  return http.delete(`${locationsURL}/${id}`);
 };
 
-const logIn = async (params: { data: LogIn }): Promise<User> => {
-  return postData({ url: logInURL, ...params });
+const logIn = async (data: LogIn): Promise<User> => {
+  return http.post(logInURL, data);
 };
 
 const logOut = async (): Promise<void> => {
-  return postData({ url: logOutURL });
+  return http.post(logOutURL);
 };
 
 export { getLocations, addLocation, deleteLocation, logIn, logOut };

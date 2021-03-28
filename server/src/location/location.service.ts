@@ -46,11 +46,8 @@ export class LocationService {
     };
   }
 
-  async deleteLocation(
-    user: User,
-    deleteLocation: DeleteLocation,
-  ): Promise<void> {
-    const location = await this.locationRepository.findOne(deleteLocation.id, {
+  async deleteLocation(user: User, id: number): Promise<void> {
+    const location = await this.locationRepository.findOne(id, {
       relations: ['user'],
     });
 
@@ -59,6 +56,6 @@ export class LocationService {
       throw new Error('No operation');
     }
 
-    await this.locationRepository.delete(deleteLocation.id);
+    await this.locationRepository.delete(id);
   }
 }

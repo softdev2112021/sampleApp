@@ -6,8 +6,18 @@ export const errorMessage = {
     text: "Server not responding...",
   },
   auth: {
-    title: "Access denied",
-    text: "Wrong auth data",
+    login: {
+      title: "Access denied",
+      text: "Wrong login",
+    },
+    password: {
+      title: "Access denied",
+      text: "Wrong password",
+    },
+  },
+  unknown: {
+    title: "Something went wrong",
+    text: "Unknown error...",
   },
   server: {
     title: "Something went wrong",

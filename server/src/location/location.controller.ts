@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, UseGuards, Inject, Logger, LoggerService, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, UseGuards, Inject, Logger, LoggerService, InternalServerErrorException, Param } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { AddLocationDto } from './dto/addLocation.dto';
 import { DeleteLocationDto } from './dto/deleteLocation.dto';
@@ -49,13 +49,13 @@ export class LocationController {
       });
   }
 
-  @Delete()
+  @Delete(':id')
   async deleteLocation(
-    @Body() deleteLocationDto: DeleteLocationDto,
+    @Param('id') id: number,
     @ReqUser() user: User,
   ): Promise<void> {
     return this.locationService
-      .deleteLocation(user, deleteLocationDto)
+      .deleteLocation(user, id)
       .then((): void => {
         this.logger.log('Successfully deleted location');
       })

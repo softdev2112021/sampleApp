@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { LogIn } from "../../lib/api/weatherApi/interfaces/Auth";
 import { logIn } from "../../lib/api/weatherApi/weatherApi";
 import logger from "../../lib/logger/logger";
-import { errorMessage, showErrorAlert } from "../../lib/alerts/alerts";
+import { errorMessage, showErrorAlert } from "../../lib/ui/alerts/alerts";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,18 +21,22 @@ const Login = () => {
       password: e.currentTarget.password.value,
     }
 
-    logIn({ data })
+    logIn(data)
       .then(() => {
         logger.debug('Successfully logged in');
         router.push("/locations");
       })
       .catch((e) => {
-        if (e.message === "Failed to fetch") {
+        if (e.message === "Network Error") {
           showErrorAlert(errorMessage.fetch);
-        } else if (e.message.includes('Internal Server Error')) {
+        } else if (e.response.data.message === 'Internal server error') {
           showErrorAlert(errorMessage.server);
+        } else if (e.response.data.message === 'Unauthorized') {
+          showErrorAlert(errorMessage.auth.password);
+        } else if (e.response.data.message === 'User with this login does not exist') {
+          showErrorAlert(errorMessage.auth.login);
         } else {
-          showErrorAlert(errorMessage.auth);
+          showErrorAlert(errorMessage.unknown);
         }
 
         logger.error(`Login error: ${e.message}`);
