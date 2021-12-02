@@ -1,5 +1,7 @@
 FROM node:14-alpine AS builder
 
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
 WORKDIR /app
 
 COPY package*.json ./
