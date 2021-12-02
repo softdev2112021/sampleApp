@@ -1,4 +1,8 @@
-A client-server application based on Next.js, Nest.js, PostgreSQL providing weather forecast information for a list of cities from the Open Weather Map API service.
+To start the app you need docker installed, then run "docker-compose up" from the root directory
+Open http://localhost:3000/ and you will see login page
+To log in use user1@gmail.com, pass1
+
+A client-server application based on Next.js, Nest.js, PostgreSQL and Docker providing weather forecast information for a list of cities from the Open Weather Map API service.
 
 The application consists of a login page and a page with weather forecast cards for cities. Each card contains information about the current weather and forecast for the next three days. The cards display information about temperature and precipitation. Also, the user has the ability to delete cards and add new ones through the city search field.
 
