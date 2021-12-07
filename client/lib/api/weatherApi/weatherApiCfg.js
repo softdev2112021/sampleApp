@@ -1,4 +1,5 @@
-const baseURL = `${process.env.appHost}:${process.env.appPort}`;
+const baseURL = process.env.NEXT_PUBLIC_API_HOST
+
 const config = {
   entrypoints: {
     locationsURL: `${baseURL}/locations`,
