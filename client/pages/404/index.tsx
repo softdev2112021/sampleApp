@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
-const NotFound = () => {
-  return (
+const NotFound: React.FC = () => (
     <div className="error">
       <div className="error-code m-b-10">404</div>
       <div className="error-content">
@@ -18,6 +17,5 @@ const NotFound = () => {
       </div>
     </div>
   );
-};
 
 export default NotFound;

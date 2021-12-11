@@ -6,7 +6,7 @@ export const errorMessage = {
     text: "Server not responding...",
   },
   auth: {
-    login: {
+    email: {
       title: "Access denied",
       text: "Wrong login",
     },

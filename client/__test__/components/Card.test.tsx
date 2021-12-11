@@ -1,28 +1,19 @@
-import React from 'react';
 import renderer from 'react-test-renderer';
-import Card, { CardProps } from '../../components/card/Card';
+
+import Card from 'components/card';
+import { ICard } from 'interfaces';
 
 it('renders correctly', () => {
-  const cardProps: CardProps = {
+  const cardProps: ICard = {
     id: 1,
     title: "Dnipro",
-    date: { weekDay: "Mon", date: "17/Mar" },
+    day: "Mon", 
+    date: "17/Mar",
     content: {
-      data: 20,
-      descr: "descr",
+      value: 20,
+      description: "descr",
       icon: "icon",
     },
-    contentDetails: [
-      {
-        key: "key",
-        date: { weekDay: "Mon", date: "17/Mar" },
-        content: {
-          data: { min: 19, max: 20, pop: "0%" },
-          descr: "descr",
-          icon: "icon",
-        },
-      },
-    ],
     onDelete: () => {},
   };
 

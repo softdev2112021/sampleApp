@@ -1,6 +1,7 @@
 import { createLogger, format } from "winston";
 import BrowserConsole from "winston-transport-browserconsole";
-import config from "../../appConfig";
+
+import config from "config";
 
 const logger = createLogger({
   transports: [

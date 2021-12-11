@@ -1,27 +1,16 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { LogIn } from "../../lib/api/weatherApi/interfaces/Auth";
-import { logIn } from "../../lib/api/weatherApi/weatherApi";
-import logger from "../../lib/logger/logger";
-import { errorMessage, showErrorAlert } from "../../lib/ui/alerts/alerts";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import { errorMessage, showErrorAlert } from "services/alerts";
+import logger from "services/logger";
+import { logIn } from "api/weatherApi";
+
+const Login: React.FC = () => {
   const router = useRouter()
 
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data: LogIn = {
-      login: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-    }
-
-    logIn(data)
+    logIn({login: e.currentTarget.email.value, password: e.currentTarget.password.value})
       .then(() => {
         logger.debug('Successfully logged in');
         router.push("/locations");
@@ -33,13 +22,13 @@ const Login = () => {
           showErrorAlert(errorMessage.server);
         } else if (e.response.data.message === 'Unauthorized') {
           showErrorAlert(errorMessage.auth.password);
-        } else if (e.response.data.message === 'User with this login does not exist') {
-          showErrorAlert(errorMessage.auth.login);
+        } else if (e.response.data.message === 'User with this email does not exist') {
+          showErrorAlert(errorMessage.auth.email);
         } else {
           showErrorAlert(errorMessage.unknown);
         }
 
-        logger.error(`Login error: ${e.message}`);
+        logger.error(`Log in error: ${e.message}`);
       });
   }
   
@@ -64,13 +53,11 @@ const Login = () => {
           </div>
         </div>
         <div className="login-content">
-          <form className="margin-bottom-0" onSubmit={onSubmit}>
+          <form className="margin-bottom-0" onSubmit={handleSubmit}>
             <div className="form-group m-b-20">
               <input
                 type="email"
                 name="email"
-                value={email}
-                onChange={onChangeEmail}
                 className="form-control form-control-lg"
                 placeholder="Email Address"
                 required
@@ -80,8 +67,6 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                value={password}
-                onChange={onChangePassword}
                 className="form-control form-control-lg"
                 placeholder="Password"
                 required

@@ -1,25 +1,6 @@
-import CardDetails, { CardDetailsProps } from './cardDetails/CardDetails';
+import { ICard } from 'interfaces';
 
-export interface CardProps {
-  id: number;
-  title: string;
-  date: { weekDay: string; date: string };
-  content: {
-    data: number;
-    descr: string;
-    icon: string;
-  };
-  contentDetails: CardDetailsProps[];
-  onDelete: (id: number) => void;
-}
-
-const Card = (props: CardProps) => {
-  const { id, title, date: { weekDay, date }, content: { data, descr, icon }, contentDetails, onDelete } = props;
-  const cardDetails = contentDetails.map((content: CardDetailsProps) => {
-    return <CardDetails key={content.date.weekDay} {...content}/>
-  });
-
-  return (
+const Card: React.FC<ICard> = ({ id, title, day, date, content: { value, description, icon }, onDelete, children }) => (
     <div className="col-sm-6 col-md-4 col-xl-3">
       <div className="panel panel-inverse">
         <div className="panel-heading bg-dark text-grey">
@@ -27,7 +8,7 @@ const Card = (props: CardProps) => {
             <b className="f-s-16">{title}</b>
           </h4>
           <div className="panel-date m-r-20">
-            <b>{weekDay}/</b>
+            <b>{day}/</b>
             <b>{date}</b>
           </div>
           <div className="panel-heading-btn">
@@ -42,17 +23,18 @@ const Card = (props: CardProps) => {
         <div className="panel-body pt-0 pb-0">
           <div className="d-flex align-items-center">
             <h2 className="mb-0">
-              {data}
+              {value}
               <sup>o</sup>C
             </h2>
             <img src={icon} alt="image" width="64" />
-            <b>{descr}</b>
+            <b>{description}</b>
           </div>
         </div>
-        <div className="row row-space-0 p-t-10 p-b-10 bg-gradient-grey">{cardDetails}</div>
+        <div className="row row-space-0 p-t-10 p-b-10 bg-gradient-grey">
+          {children}
+        </div>
       </div>
     </div>
   );
-};
 
 export default Card;

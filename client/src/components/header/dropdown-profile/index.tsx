@@ -1,19 +1,13 @@
+import { useState } from 'react';
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { useState } from 'react';
+import { IDropdownProfile } from 'interfaces';
 
-interface DropdownProfileProps {
-  userName: string;
-  avatar: string;
-  onLogout: () => void;
-}
-
-const DropdownProfile = (props: DropdownProfileProps) => {
-  const { userName, avatar, onLogout } = props;
+const DropdownProfile: React.FC<IDropdownProfile> = ({ userName, avatar, onLogout }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {

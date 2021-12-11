@@ -1,9 +1,10 @@
-import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from '../../components/header/Header';
+
+import Header from 'components/header';
+import {IHeader} from 'interfaces';
 
 it('renders correctly', () => {
-  const headerProps = {
+  const headerProps: IHeader = {
     brandName: 'Forecastic',
     userName: 'username1',
     avatar: 'avatar',

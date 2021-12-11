@@ -1,4 +1,16 @@
+const { parsed: myEnv } = require('dotenv-safe').config();
+const webpack = require('webpack');
+
 module.exports = {
+  webpack(config, { isServer }) {
+    config.plugins.push(new webpack.EnvironmentPlugin(myEnv));
+
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+
+    return config;
+  },
   async redirects() {
     return [
       {
@@ -8,10 +20,6 @@ module.exports = {
       },
     ]
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.node = {
-      fs: 'empty'
-    }
-    return config
-  },
 };
+
+

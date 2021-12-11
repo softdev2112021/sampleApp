@@ -1,9 +1,10 @@
-import React from 'react';
 import renderer from 'react-test-renderer';
-import DropdownProfile from '../../components/header/dropdownProfile/DropdownProfile';
+
+import DropdownProfile from 'components/header/dropdown-profile';
+import {IDropdownProfile} from 'interfaces';
 
 it('renders correctly', () => {
-  const dropdownProfileProps = {
+  const dropdownProfileProps: IDropdownProfile  = {
     userName: 'username1',
     avatar: 'avatar',
     onLogout: () => {},
