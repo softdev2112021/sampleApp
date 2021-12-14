@@ -1,4 +1,4 @@
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react';
 import {
   Dropdown,
@@ -27,7 +27,7 @@ const DropdownProfile: React.FC<IDropdownProfile> = ({
       tag="li"
     >
       <DropdownToggle tag="a">
-        <Image src={avatar} alt="profile" />
+        <img src={avatar} alt="profile" />
         <span className="d-none d-md-inline">{`${userName} `}</span>
         <b className="caret"></b>
       </DropdownToggle>

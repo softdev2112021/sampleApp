@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+/* eslint-disable @next/next/no-img-element */
 import { ICardDetails } from 'interfaces';
 
 const CardDetails: React.FC<ICardDetails> = ({
@@ -15,7 +14,7 @@ const CardDetails: React.FC<ICardDetails> = ({
       {day}/{date}
     </div>
     <div className="height-50">
-      <Image src={icon} alt="image" width="64" />
+      <img src={icon} alt="image" width="64" />
     </div>
     <div className="f-s-18 f-w-800 height-20">
       {maxValue}

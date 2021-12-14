@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+/* eslint-disable @next/next/no-img-element */
 import { ICard } from 'interfaces';
 
 const Card: React.FC<ICard> = ({
@@ -36,7 +35,7 @@ const Card: React.FC<ICard> = ({
             {value}
             <sup>o</sup>C
           </h2>
-          <Image src={icon} alt="image" width="64" />
+          <img src={icon} alt="image" width="64" />
           <b>{description}</b>
         </div>
       </div>
