@@ -10,7 +10,7 @@ const Header: React.FC<IHeader> = ({
   <div className="header navbar-default">
     <div className="navbar-brand">
       <span className="navbar-logo">
-        <i className="fas fa-cloud"></i>
+        <i className="fas fa-cloud" />
       </span>
       <b>{brandName}</b>&nbsp;App
     </div>
