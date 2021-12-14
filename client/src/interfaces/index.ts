@@ -44,15 +44,15 @@ export interface ICardDetails extends IDate {
   maxValue: number;
   condition: string;
   icon: string;
-};
+}
 
 export interface IForecast extends IDate {
-  weather: { 
-    minTemperature: number; 
-    maxTemperature: number; 
+  weather: {
+    minTemperature: number;
+    maxTemperature: number;
     rain: string;
     weatherIcon: string;
-  }
+  };
 }
 
 export interface ILocation extends IDate {
@@ -60,11 +60,18 @@ export interface ILocation extends IDate {
   name: string;
   country?: string;
   coords?: [number, number];
-  currentWeather: { temperature: number; description: string; weatherIcon: string };
+  currentWeather: {
+    temperature: number;
+    description: string;
+    weatherIcon: string;
+  };
   forecast: IForecast[];
 }
 
-export type ISearchedLocation = Pick<ILocation, 'id' | 'name' | 'country' | 'coords'>
+export type ISearchedLocation = Pick<
+  ILocation,
+  'id' | 'name' | 'country' | 'coords'
+>;
 
 export interface IForecastApi {
   dt: number;
@@ -84,5 +91,5 @@ export interface ILocationApi {
       icon: string;
     };
     daily: IForecastApi[];
-  }
+  };
 }

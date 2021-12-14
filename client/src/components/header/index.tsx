@@ -1,6 +1,6 @@
-import SearchForm from "components/header/search-form";
-import DropdownProfile from "components/header/dropdown-profile";
-import { IHeader } from "interfaces";
+import SearchForm from 'components/header/search-form';
+import DropdownProfile from 'components/header/dropdown-profile';
+import { IHeader } from 'interfaces';
 
 const Header: React.FC<IHeader> = ({
   brandName,

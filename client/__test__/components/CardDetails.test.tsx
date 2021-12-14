@@ -1,11 +1,11 @@
 import renderer from 'react-test-renderer';
 
 import CardDetails from 'components/card/card-details';
-import {ICardDetails} from 'interfaces';
+import { ICardDetails } from 'interfaces';
 
 it('renders correctly', () => {
-  const cardDetailsProps: ICardDetails = { 
-    day: 'Mon', 
+  const cardDetailsProps: ICardDetails = {
+    day: 'Mon',
     date: '17/Mar',
     minValue: 10,
     maxValue: 20,
@@ -13,8 +13,6 @@ it('renders correctly', () => {
     icon: 'icon',
   };
 
-  const tree = renderer
-    .create(<CardDetails {...cardDetailsProps}/>)
-    .toJSON();
+  const tree = renderer.create(<CardDetails {...cardDetailsProps} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

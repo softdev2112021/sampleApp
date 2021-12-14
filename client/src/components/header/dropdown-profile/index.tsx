@@ -1,17 +1,22 @@
+import Image from 'next/image';
 import { useState } from 'react';
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from "reactstrap";
+} from 'reactstrap';
 import { IDropdownProfile } from 'interfaces';
 
-const DropdownProfile: React.FC<IDropdownProfile> = ({ userName, avatar, onLogout }) => {
+const DropdownProfile: React.FC<IDropdownProfile> = ({
+  userName,
+  avatar,
+  onLogout,
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
-    setDropdownOpen((dropdownOpen) => !dropdownOpen);
+    setDropdownOpen(dropdownOpen => !dropdownOpen);
   };
 
   return (
@@ -22,7 +27,7 @@ const DropdownProfile: React.FC<IDropdownProfile> = ({ userName, avatar, onLogou
       tag="li"
     >
       <DropdownToggle tag="a">
-        <img src={avatar} alt="profile" />
+        <Image src={avatar} alt="profile" />
         <span className="d-none d-md-inline">{`${userName} `}</span>
         <b className="caret"></b>
       </DropdownToggle>

@@ -1,10 +1,8 @@
-import React from 'react';
 import renderer from 'react-test-renderer';
-import Locations from '../../pages/locations/index';
+
+import Locations from '../../pages/locations';
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(<Locations/>)
-    .toJSON();
+  const tree = renderer.create(<Locations />).toJSON();
   expect(tree).toMatchSnapshot();
 });

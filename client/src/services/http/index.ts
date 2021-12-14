@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class Http {
-  private readonly http: any
+  private readonly http: any;
 
   constructor() {
     this.http = axios.create({

@@ -1,28 +1,33 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
-import { errorMessage, showErrorAlert } from "services/alerts";
-import logger from "services/logger";
-import { logIn } from "api/weatherApi";
+import { errorMessage, showErrorAlert } from 'services/alerts';
+import logger from 'services/logger';
+import { logIn } from 'api/weatherApi';
 
 const Login: React.FC = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    logIn({login: e.currentTarget.email.value, password: e.currentTarget.password.value})
+    logIn({
+      login: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+    })
       .then(() => {
         logger.debug('Successfully logged in');
-        router.push("/locations");
+        router.push('/locations');
       })
-      .catch((e) => {
-        if (e.message === "Network Error") {
+      .catch(e => {
+        if (e.message === 'Network Error') {
           showErrorAlert(errorMessage.fetch);
         } else if (e.response.data.message === 'Internal server error') {
           showErrorAlert(errorMessage.server);
         } else if (e.response.data.message === 'Unauthorized') {
           showErrorAlert(errorMessage.auth.password);
-        } else if (e.response.data.message === 'User with this email does not exist') {
+        } else if (
+          e.response.data.message === 'User with this email does not exist'
+        ) {
           showErrorAlert(errorMessage.auth.email);
         } else {
           showErrorAlert(errorMessage.unknown);
@@ -30,14 +35,14 @@ const Login: React.FC = () => {
 
         logger.error(`Log in error: ${e.message}`);
       });
-  }
-  
+  };
+
   return (
     <>
       <div className="login-cover">
         <div
           className="login-cover-image"
-          style={{ backgroundImage: "url(/img/background/login-bg.jpg)" }}
+          style={{ backgroundImage: 'url(/img/background/login-bg.jpg)' }}
         ></div>
         <div className="login-cover-bg"></div>
       </div>
@@ -45,7 +50,10 @@ const Login: React.FC = () => {
       <div className="login login-v2">
         <div className="login-header">
           <div className="brand">
-            <span className="logo"><i className="fas fa-cloud"></i></span> <b>Forecastic</b> App
+            <span className="logo">
+              <i className="fas fa-cloud"></i>
+            </span>{' '}
+            <b>Forecastic</b> App
             <small>Weather forecast by Ivan</small>
           </div>
           <div className="icon">

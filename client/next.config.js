@@ -18,8 +18,6 @@ module.exports = {
         destination: '/auth/login',
         permanent: true,
       },
-    ]
+    ];
   },
 };
-
-

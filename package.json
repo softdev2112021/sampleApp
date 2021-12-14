@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "husky": "^7.0.0",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.2"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "pretty:quick": "pretty-quick --staged",
+    "pretty:all": "pushd client && yarn pretty && popd && pushd server && yarn pretty && popd"
+  }
+}

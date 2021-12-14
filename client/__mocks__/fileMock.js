@@ -1,1 +1,1 @@
-module.exports = "placeholder-file";
+module.exports = 'placeholder-file';

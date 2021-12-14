@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 import {
   addLocation,
   deleteLocation,
   getLocations,
   logOut,
-} from "api/weatherApi";
+} from 'api/weatherApi';
 import {
   errorMessage,
   showErrorAlert,
   showWarningAlert,
-} from "services/alerts";
-import logger from "services/logger";
-import Header from "components/header";
-import Card from "components/card";
-import CardDetails from "components/card/card-details";
-import { ILocation, IForecast } from "interfaces";
-import config from "config";
+} from 'services/alerts';
+import logger from 'services/logger';
+import Header from 'components/header';
+import Card from 'components/card';
+import CardDetails from 'components/card/card-details';
+import { ILocation, IForecast } from 'interfaces';
+import config from 'config';
 
 const Locations: React.FC = () => {
   const [locations, setLocations] = useState<ILocation[]>([]);
@@ -32,7 +32,9 @@ const Locations: React.FC = () => {
         setLoggedIn(true);
         setLocationsLoading(false);
         setLocations(locations);
-        logger.debug(`Successfully loaded locations: ${JSON.stringify(locations)}`);
+        logger.debug(
+          `Successfully loaded locations: ${JSON.stringify(locations)}`,
+        );
       })
       .catch((e: Error) => {
         setLocationsLoading(false);
@@ -40,13 +42,18 @@ const Locations: React.FC = () => {
       });
   }, []);
 
-  const handleLocationAdd = async ({name, coords}: Pick<ILocation, 'name' | 'coords'>) => {
+  const handleLocationAdd = async ({
+    name,
+    coords,
+  }: Pick<ILocation, 'name' | 'coords'>) => {
     if (locations.length >= config.maxLocations) {
       showErrorAlert(errorMessage.maxLocations);
       return;
     }
 
-    const locationExist = locations.find((location: ILocation) => location.name === name);
+    const locationExist = locations.find(
+      (location: ILocation) => location.name === name,
+    );
 
     if (locationExist) {
       showWarningAlert(errorMessage.locationExist);
@@ -54,15 +61,15 @@ const Locations: React.FC = () => {
     }
 
     try {
-      const newLocations: ILocation[] = await addLocation({name, coords});
-      
+      const newLocations: ILocation[] = await addLocation({ name, coords });
+
       setLocations((prevLocations: ILocation[]) => [
         ...prevLocations,
         ...newLocations,
       ]);
-    
+
       logger.debug(`Successfully added location: ${JSON.stringify(location)}`);
-    } catch(e) {
+    } catch (e) {
       logger.error(`Location add error: ${e}`);
     }
   };
@@ -70,9 +77,11 @@ const Locations: React.FC = () => {
   const handleLocationDelete = async (id: number) => {
     try {
       await deleteLocation(id);
-      setLocations((locations: ILocation[]) => locations.filter((location: ILocation) => location.id !== id));
+      setLocations((locations: ILocation[]) =>
+        locations.filter((location: ILocation) => location.id !== id),
+      );
       logger.debug(`Successfully deleted location : ${id}`);
-    } catch(e) {
+    } catch (e) {
       logger.error(`Location delete error: ${e}`);
     }
   };
@@ -80,9 +89,9 @@ const Locations: React.FC = () => {
   const handleLogOut = async () => {
     try {
       await logOut();
-      router.push("/auth/login");
-      logger.debug("Successfully logged out");
-    } catch(e) {
+      router.push('/auth/login');
+      logger.debug('Successfully logged out');
+    } catch (e) {
       logger.error(`Log out error: ${e}`);
     }
   };
@@ -136,10 +145,10 @@ const Locations: React.FC = () => {
                           icon={weatherIcon}
                           {...rest}
                         />
-                      )
+                      ),
                     )}
                   </Card>
-                )
+                ),
               )}
           </div>
         </div>

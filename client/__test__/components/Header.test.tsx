@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 
 import Header from 'components/header';
-import {IHeader} from 'interfaces';
+import { IHeader } from 'interfaces';
 
 it('renders correctly', () => {
   const headerProps: IHeader = {
@@ -10,10 +10,8 @@ it('renders correctly', () => {
     avatar: 'avatar',
     onSearchSubmit: () => {},
     onLogout: () => {},
-  }
+  };
 
-  const tree = renderer
-    .create(<Header {...headerProps}/>)
-    .toJSON();
+  const tree = renderer.create(<Header {...headerProps} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

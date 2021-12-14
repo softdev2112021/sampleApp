@@ -4,25 +4,25 @@ import {
   IForecastApi,
   ILocation,
   ILocationApi,
-} from "interfaces";
-import config from "config";
+} from 'interfaces';
+import config from 'config';
 
 const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
-const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const convertTime = (timestamp: number): IDate => {
   const time = new Date(timestamp * 1000);
@@ -34,7 +34,7 @@ export const convertTime = (timestamp: number): IDate => {
 };
 
 export const convertLocationsApi = (
-  locationsApi: ILocationApi[]
+  locationsApi: ILocationApi[],
 ): ILocation[] =>
   locationsApi.map((locationApi: ILocationApi): ILocation => {
     const {

@@ -1,7 +1,7 @@
-import { createLogger, format } from "winston";
-import BrowserConsole from "winston-transport-browserconsole";
+import { createLogger, format } from 'winston';
+import BrowserConsole from 'winston-transport-browserconsole';
 
-import config from "config";
+import config from 'config';
 
 const logger = createLogger({
   transports: [
